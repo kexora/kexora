@@ -1,6 +1,7 @@
 import React from 'react';
 import { SERVICES_DATA, KEXORA_SERVICE_PILLARS } from '../../data/agencyData';
 import { KEXORA_THEME } from './theme';
+import { BlurKex } from '../../effect';
 import {
   Zap,
   Code2,
@@ -45,7 +46,11 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({
     <section id="services" className={KEXORA_THEME.classes.sectionWhite}>
       <div className={KEXORA_THEME.classes.container}>
         {/* Clean Modern Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+        <BlurKex
+          direction="up"
+          blurPx={14}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6"
+        >
           <div className="max-w-2xl">
             <div className={KEXORA_THEME.classes.kicker}>
               What We Do · Our Services
@@ -71,13 +76,17 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({
               <ArrowRight className="w-4 h-4" />
             </button>
           )}
-        </div>
+        </BlurKex>
 
         {/* Modern 3-Column Service Cards with Elevated Hover State */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mb-14">
-          {SERVICES_DATA.map((service) => (
-            <article
+          {SERVICES_DATA.map((service, idx) => (
+            <BlurKex
               key={service.id}
+              as="article"
+              direction="up"
+              staggerIndex={idx}
+              blurPx={14}
               className={`group p-8 flex flex-col justify-between ${KEXORA_THEME.classes.cardOnWhite}`}
             >
               <div>
@@ -125,12 +134,16 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
-            </article>
+            </BlurKex>
           ))}
         </div>
 
         {/* Sleek Monochrome 4-Pillar Complete Service Catalog (Matches Dark Hero Contrast) */}
-        <div className="p-8 sm:p-10 lg:p-12 rounded-3xl bg-zinc-950 text-white shadow-xl">
+        <BlurKex
+          direction="up"
+          blurPx={16}
+          className="p-8 sm:p-10 lg:p-12 rounded-3xl bg-zinc-950 text-white shadow-xl"
+        >
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 mb-8 border-b border-zinc-800">
             <div>
               <div className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-2">
@@ -175,7 +188,7 @@ export const ServicesBento: React.FC<ServicesBentoProps> = ({
               </div>
             ))}
           </div>
-        </div>
+        </BlurKex>
       </div>
     </section>
   );

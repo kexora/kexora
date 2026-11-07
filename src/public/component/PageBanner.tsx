@@ -2,6 +2,7 @@ import React from 'react';
 import { ActiveTab } from '../../types';
 import { ArrowRight } from 'lucide-react';
 import { ProtectedImage, KEXORA_MEDIA_VAULT } from './ProtectedImage';
+import { BlurKex } from '../../effect';
 
 interface PageBannerProps {
   kicker: string;
@@ -37,24 +38,32 @@ export const PageBanner: React.FC<PageBannerProps> = ({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Breadcrumb & Kicker */}
-        <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-300 mb-4">
-          {onBackHome && (
-            <>
-              <button
-                type="button"
-                onClick={() => onBackHome('home')}
-                className="hover:text-white font-semibold transition-colors"
-              >
-                Home
-              </button>
-              <span aria-hidden="true">/</span>
-            </>
-          )}
-          <span className="text-white font-bold uppercase tracking-wider">{kicker}</span>
-        </div>
+        <BlurKex trigger="mount" direction="down" delay={0.04} blurPx={12}>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-300 mb-4">
+            {onBackHome && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => onBackHome('home')}
+                  className="hover:text-white font-semibold transition-colors"
+                >
+                  Home
+                </button>
+                <span aria-hidden="true">/</span>
+              </>
+            )}
+            <span className="text-white font-bold uppercase tracking-wider">{kicker}</span>
+          </div>
+        </BlurKex>
 
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-          <div className="max-w-3xl space-y-4">
+          <BlurKex
+            trigger="mount"
+            direction="up"
+            delay={0.12}
+            blurPx={16}
+            className="max-w-3xl space-y-4"
+          >
             <h1
               className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white font-[Outfit] leading-[1.1]"
               style={{ textWrap: 'balance' }}
@@ -64,10 +73,10 @@ export const PageBanner: React.FC<PageBannerProps> = ({
             <p className="text-base sm:text-lg text-zinc-200 leading-relaxed">
               {description}
             </p>
-          </div>
+          </BlurKex>
 
           {primaryCtaLabel && onPrimaryCta && (
-            <div className="shrink-0">
+            <BlurKex trigger="mount" direction="left" delay={0.22} blurPx={14} className="shrink-0">
               <button
                 type="button"
                 onClick={onPrimaryCta}
@@ -76,7 +85,7 @@ export const PageBanner: React.FC<PageBannerProps> = ({
                 <span>{primaryCtaLabel}</span>
                 <ArrowRight className="w-5 h-5" />
               </button>
-            </div>
+            </BlurKex>
           )}
         </div>
       </div>

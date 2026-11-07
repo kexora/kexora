@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CLIENT_TESTIMONIALS, FREQUENTLY_ASKED_QUESTIONS } from '../../data/agencyData';
 import { KEXORA_THEME } from './theme';
+import { BlurKex } from '../../effect';
 import { ChevronDown } from 'lucide-react';
 
 export const TestimonialsFaq: React.FC = () => {
@@ -10,7 +11,7 @@ export const TestimonialsFaq: React.FC = () => {
     <section className={KEXORA_THEME.classes.sectionMuted}>
       <div className={`${KEXORA_THEME.classes.container} space-y-20`}>
         <div>
-          <div className="mb-12">
+          <BlurKex direction="up" blurPx={14} className="mb-12">
             <div className={KEXORA_THEME.classes.kicker}>
               Client Reviews & Results
             </div>
@@ -20,12 +21,15 @@ export const TestimonialsFaq: React.FC = () => {
             >
               What Our Clients Say About Kexora
             </h2>
-          </div>
+          </BlurKex>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
             {CLIENT_TESTIMONIALS.map((t, idx) => (
-              <blockquote
+              <BlurKex
                 key={idx}
+                direction="up"
+                staggerIndex={idx}
+                blurPx={14}
                 className={`p-8 flex flex-col justify-between space-y-6 ${KEXORA_THEME.classes.cardOnMuted}`}
               >
                 <div className="space-y-4">
@@ -43,27 +47,30 @@ export const TestimonialsFaq: React.FC = () => {
                     {t.role} · {t.company}
                   </div>
                 </footer>
-              </blockquote>
+              </BlurKex>
             ))}
           </div>
         </div>
 
         <div className="max-w-4xl mx-auto pt-12 border-t border-zinc-200">
-          <div className="mb-10">
+          <BlurKex direction="up" blurPx={14} className="mb-10">
             <div className={KEXORA_THEME.classes.kicker}>
               Common Questions
             </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 font-[Outfit]">
               Frequently Asked Questions
             </h3>
-          </div>
+          </BlurKex>
 
           <div className="space-y-3">
             {FREQUENTLY_ASKED_QUESTIONS.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
-                <div
+                <BlurKex
                   key={idx}
+                  direction="up"
+                  staggerIndex={idx}
+                  blurPx={10}
                   className="rounded-2xl bg-white border border-zinc-200 overflow-hidden transition-colors"
                 >
                   <button
@@ -85,7 +92,7 @@ export const TestimonialsFaq: React.FC = () => {
                       {faq.answer}
                     </div>
                   )}
-                </div>
+                </BlurKex>
               );
             })}
           </div>

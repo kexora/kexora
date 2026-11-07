@@ -5,6 +5,7 @@ import { PageBanner } from '../component/PageBanner';
 import { PricingSection } from '../component/PricingSection';
 import { ToolsSuite } from '../component/ToolsSuite';
 import { TestimonialsFaq } from '../component/TestimonialsFaq';
+import { BlurKex } from '../../effect';
 import {
   Search,
   Check,
@@ -206,7 +207,11 @@ export const PricingPage: React.FC<PricingPageProps> = ({
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header & Why Kexora is 30% Cheaper Proof Strip */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
+          <BlurKex
+            direction="up"
+            blurPx={14}
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10"
+          >
             <div className="max-w-3xl">
               <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider text-zinc-500 mb-3">
                 <span>All 24 Company Services</span>
@@ -256,10 +261,10 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                 </button>
               </div>
             </div>
-          </div>
+          </BlurKex>
 
           {/* 3-Column Direct Studio Advantage Strip */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5 rounded-3xl bg-[#FAFAFB] border border-zinc-200/90 mb-10">
+          <BlurKex direction="up" delay={0.08} blurPx={12} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5 rounded-3xl bg-[#FAFAFB] border border-zinc-200/90 mb-10">
             <div className="px-3 py-1">
               <div className="text-xs font-mono font-bold text-zinc-950 mb-1">
                 01 · Zero Agency Middlemen
@@ -284,7 +289,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                 Click <strong className="text-zinc-950">+ Add to Bundle</strong> on any cards below to calculate your combined multi-task quote and auto-fill your enquiry in one click.
               </p>
             </div>
-          </div>
+          </BlurKex>
 
           {/* Interactive Filter Toolbar: 4 Pillar Tabs + Search Input + Billing Type */}
           <div className="space-y-4 mb-10">
@@ -410,7 +415,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
           ) : (
             /* 24 Service Pricing Cards Grid */
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-              {filteredServices.map((srv) => {
+              {filteredServices.map((srv, idx) => {
                 const kexoraPrice =
                   currency === 'INR' ? srv.kexoraPriceInr : srv.kexoraPriceUsd;
                 const marketPrice =
@@ -422,8 +427,11 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                 const isSelectedInBundle = selectedBundleIds.includes(srv.id);
 
                 return (
-                  <div
+                  <BlurKex
                     key={srv.id}
+                    direction="up"
+                    staggerIndex={idx % 6}
+                    blurPx={14}
                     className={`group rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 ${
                       isSelectedInBundle
                         ? 'bg-zinc-950 text-white border-2 border-zinc-950 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)]'
@@ -596,7 +604,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                         <ArrowUpRight className="w-4 h-4" />
                       </button>
                     </div>
-                  </div>
+                  </BlurKex>
                 );
               })}
             </div>

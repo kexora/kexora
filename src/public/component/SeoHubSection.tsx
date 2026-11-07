@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, FileCode, Globe, Shield } from 'lucide-react';
+import { BlurKex } from '../../effect';
 
 export const SeoHubSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'schema' | 'opengraph' | 'sitemap'>('schema');
@@ -10,7 +11,11 @@ export const SeoHubSection: React.FC = () => {
       className="py-20 bg-zinc-50 text-zinc-950 border-b border-zinc-200"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+        <BlurKex
+          direction="up"
+          blurPx={14}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6"
+        >
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2">
               Enterprise Google SEO & AI-SEO Architecture · Built Into Every Kexora Site
@@ -25,10 +30,15 @@ export const SeoHubSection: React.FC = () => {
           <p className="text-sm text-zinc-600 max-w-md leading-relaxed">
             Every custom code site we build ships with nested Schema.org JSON-LD graphs, Google SERP sitelink triggers, OpenGraph social cards, and Local GMB signals.
           </p>
-        </div>
+        </BlurKex>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="p-7 rounded-2xl bg-white border border-zinc-200 space-y-3">
+          <BlurKex
+            direction="up"
+            staggerIndex={0}
+            blurPx={14}
+            className="p-7 rounded-2xl bg-white border border-zinc-200 space-y-3"
+          >
             <FileCode className="w-5 h-5 text-zinc-950" />
             <h3 className="text-lg font-bold text-zinc-950 font-[Outfit]">
               01. Schema.org JSON-LD Sitelinks
@@ -36,9 +46,14 @@ export const SeoHubSection: React.FC = () => {
             <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
               Structured Organization, ProfessionalService, WebSite, and SiteNavigationElement scripts help Google award multi-link sitelink panels directly under your domain.
             </p>
-          </div>
+          </BlurKex>
 
-          <div className="p-7 rounded-2xl bg-white border border-zinc-200 space-y-3">
+          <BlurKex
+            direction="up"
+            staggerIndex={1}
+            blurPx={14}
+            className="p-7 rounded-2xl bg-white border border-zinc-200 space-y-3"
+          >
             <Globe className="w-5 h-5 text-zinc-950" />
             <h3 className="text-lg font-bold text-zinc-950 font-[Outfit]">
               02. OpenGraph & Social Cards
@@ -46,9 +61,14 @@ export const SeoHubSection: React.FC = () => {
             <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
               Sharing your URL on WhatsApp, LinkedIn, or X/Twitter automatically renders rich preview cards with tailored titles, descriptions, and high-contrast visuals.
             </p>
-          </div>
+          </BlurKex>
 
-          <div className="p-7 rounded-2xl bg-white border border-zinc-200 space-y-3">
+          <BlurKex
+            direction="up"
+            staggerIndex={2}
+            blurPx={14}
+            className="p-7 rounded-2xl bg-white border border-zinc-200 space-y-3"
+          >
             <Shield className="w-5 h-5 text-zinc-950" />
             <h3 className="text-lg font-bold text-zinc-950 font-[Outfit]">
               03. AI-SEO & Core Web Vitals
@@ -56,7 +76,7 @@ export const SeoHubSection: React.FC = () => {
             <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
               Sub-second Largest Contentful Paint (0.3s LCP), zero layout shift (0.00 CLS), and clean semantic HTML5 headings ensure top placement in Google AI Overviews.
             </p>
-          </div>
+          </BlurKex>
         </div>
 
         <div className="p-6 sm:p-8 rounded-2xl bg-white border border-zinc-200">

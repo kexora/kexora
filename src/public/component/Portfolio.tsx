@@ -3,6 +3,7 @@ import { CASE_STUDIES } from '../../data/agencyData';
 import { CaseStudy } from '../../types';
 import { KEXORA_THEME } from './theme';
 import { ProtectedImage } from './ProtectedImage';
+import { BlurKex } from '../../effect';
 import { ArrowUpRight, Check, X } from 'lucide-react';
 
 interface PortfolioProps {
@@ -21,7 +22,11 @@ export const Portfolio: React.FC<PortfolioProps> = ({ openContactModal }) => {
   return (
     <section id="portfolio" className={KEXORA_THEME.classes.sectionWhite}>
       <div className={KEXORA_THEME.classes.container}>
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <BlurKex
+          direction="up"
+          blurPx={14}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6"
+        >
           <div>
             <div className={KEXORA_THEME.classes.kicker}>
               Our Work · Featured Projects
@@ -55,12 +60,16 @@ export const Portfolio: React.FC<PortfolioProps> = ({ openContactModal }) => {
               </button>
             ))}
           </div>
-        </div>
+        </BlurKex>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {filteredStudies.map((study) => (
-            <article
+          {filteredStudies.map((study, idx) => (
+            <BlurKex
               key={study.id}
+              as="article"
+              direction="up"
+              staggerIndex={idx}
+              blurPx={14}
               className={`group overflow-hidden flex flex-col justify-between ${KEXORA_THEME.classes.cardOnWhite}`}
             >
               <div>
@@ -108,7 +117,7 @@ export const Portfolio: React.FC<PortfolioProps> = ({ openContactModal }) => {
                   <ArrowUpRight className="w-4 h-4" />
                 </button>
               </div>
-            </article>
+            </BlurKex>
           ))}
         </div>
       </div>

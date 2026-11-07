@@ -5,6 +5,7 @@ import { WhatsAppReaderTool } from '../component/tools/WhatsAppReaderTool';
 import { SeoAuditorTool } from '../component/tools/SeoAuditorTool';
 import { CostEstimatorTool } from '../component/tools/CostEstimatorTool';
 import { SchemaBuilderTool } from '../component/tools/SchemaBuilderTool';
+import { BlurKex } from '../../effect';
 import {
   ArrowLeft,
   Share2,
@@ -100,7 +101,13 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
       <section className="pt-28 pb-12 sm:pb-16 bg-zinc-950 text-white border-b border-zinc-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb Navigation */}
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-8 text-xs text-zinc-400">
+          <BlurKex
+            trigger="mount"
+            direction="down"
+            delay={0.05}
+            blurPx={12}
+            className="flex flex-wrap items-center justify-between gap-4 mb-8 text-xs text-zinc-400"
+          >
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -135,10 +142,16 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
                 )}
               </button>
             </div>
-          </div>
+          </BlurKex>
 
           {/* Hero Title & Pitch */}
-          <div className="max-w-4xl space-y-4">
+          <BlurKex
+            trigger="mount"
+            direction="up"
+            delay={0.14}
+            blurPx={16}
+            className="max-w-4xl space-y-4"
+          >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-zinc-200 border border-white/15 text-xs font-bold">
               {getToolIcon(tool.id)}
               <span>{tool.badge}</span>
@@ -154,10 +167,16 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
             <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-3xl">
               {tool.fullDesc}
             </p>
-          </div>
+          </BlurKex>
 
           {/* 4 Metric Chips */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 pt-8 border-t border-zinc-800/80">
+          <BlurKex
+            trigger="mount"
+            direction="up"
+            delay={0.24}
+            blurPx={14}
+            className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 pt-8 border-t border-zinc-800/80"
+          >
             {tool.metrics.map((m, idx) => (
               <div key={idx} className="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800">
                 <div className="text-xs text-zinc-400 uppercase tracking-wider font-semibold">
@@ -168,43 +187,44 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
                 </div>
               </div>
             ))}
-          </div>
+          </BlurKex>
         </div>
       </section>
 
       {/* Main Interactive Tool Workstation */}
       <section className="py-12 sm:py-16 bg-zinc-100/70 border-b border-zinc-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-4 flex items-center justify-between">
-            <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Interactive Utility Console</span>
+          <BlurKex direction="up" blurPx={14}>
+            <div className="mb-4 flex items-center justify-between">
+              <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 flex items-center gap-1.5">
+                <span>Interactive Utility Console</span>
+              </div>
+              <span className="text-xs font-mono text-zinc-400">
+                Direct Slug: /our-tools/{tool.slug}
+              </span>
             </div>
-            <span className="text-xs font-mono text-zinc-400">
-              Direct Slug: /our-tools/{tool.slug}
-            </span>
-          </div>
 
-          {/* Render Active Tool */}
-          {tool.slug === 'whatsapp-reader' && <WhatsAppReaderTool />}
-          {tool.slug === 'seo-audit' && (
-            <SeoAuditorTool
-              onEnquireUpgrade={(url) =>
-                openContactModal(
-                  'AI-SEO & 0.3s Speed Rebuild',
-                  `Requested speed and AI-SEO overhaul for audited domain: ${url}`
-                )
-              }
-            />
-          )}
-          {tool.slug === 'cost-calculator' && (
-            <CostEstimatorTool
-              onLockInEstimate={(details) =>
-                openContactModal('Project Cost & Speed Estimate', details)
-              }
-            />
-          )}
-          {tool.slug === 'schema-generator' && <SchemaBuilderTool />}
+            {/* Render Active Tool */}
+            {tool.slug === 'whatsapp-reader' && <WhatsAppReaderTool />}
+            {tool.slug === 'seo-audit' && (
+              <SeoAuditorTool
+                onEnquireUpgrade={(url) =>
+                  openContactModal(
+                    'AI-SEO & 0.3s Speed Rebuild',
+                    `Requested speed and AI-SEO overhaul for audited domain: ${url}`
+                  )
+                }
+              />
+            )}
+            {tool.slug === 'cost-calculator' && (
+              <CostEstimatorTool
+                onLockInEstimate={(details) =>
+                  openContactModal('Project Cost & Speed Estimate', details)
+                }
+              />
+            )}
+            {tool.slug === 'schema-generator' && <SchemaBuilderTool />}
+          </BlurKex>
         </div>
       </section>
 
@@ -212,7 +232,7 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
       <section className="py-20 bg-white border-b border-zinc-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           {/* Step-by-Step Guide */}
-          <div>
+          <BlurKex direction="up" blurPx={14}>
             <div className="max-w-2xl mb-10">
               <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2">
                 Operational Walkthrough
@@ -243,7 +263,7 @@ export const ToolDetailPage: React.FC<ToolDetailPageProps> = ({
                 </div>
               ))}
             </div>
-          </div>
+          </BlurKex>
 
           {/* Technical Specs & Privacy Guarantee Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

@@ -1,8 +1,8 @@
 import React from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { ActiveTab, ToolTab } from '../../types';
-import { motion } from 'motion/react';
 import { ProtectedImage, KEXORA_MEDIA_VAULT } from './ProtectedImage';
+import { BlurKex } from '../../effect';
 
 interface HeroProps {
   openContactModal: () => void;
@@ -49,102 +49,109 @@ export const Hero: React.FC<HeroProps> = ({
         aria-hidden="true"
       />
 
-      {/* Elevated Premium Agency Hero Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center text-white space-y-6"
-      >
-        {/* Clean Editorial Kicker */}
-        <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.24em] text-zinc-300">
-          Kexora Studio · Web, App, Game &amp; SEO Agency
-        </p>
+      {/* Elevated Premium Agency Hero Content with BlurKex Slow-Motion Reveal */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center text-white space-y-6">
+        <BlurKex trigger="mount" direction="down" delay={0.05} blurPx={14}>
+          {/* Clean Editorial Kicker */}
+          <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.24em] text-zinc-300">
+            Kexora Studio · Web, App, Game &amp; SEO Agency
+          </p>
+        </BlurKex>
 
-        {/* Confirmed Premium Headline */}
-        <h1
-          itemProp="slogan"
-          className="font-extrabold tracking-tight text-white font-[Outfit] leading-[1.06]"
-          style={{
-            fontSize: 'clamp(2.45rem, 5vw, 4.35rem)',
-            textWrap: 'balance',
-          }}
-        >
-          Crafting Fast Websites, Apps &amp; Digital Brands
-        </h1>
-
-        {/* Simple, High-Impact Description of What Kexora Does */}
-        <p
-          itemProp="description"
-          className="text-base sm:text-xl text-zinc-200 max-w-2xl mx-auto leading-relaxed font-normal"
-        >
-          We design and code high-speed custom websites, e-commerce stores, Android &amp; iOS mobile apps, and games—backed by Google SEO, creative branding, and complete business registration.
-        </p>
-
-        {/* Quiet Quantitative Proof Bar */}
-        <div className="pt-1 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm font-mono text-zinc-300 tabular-nums">
-          <span>
-            <strong className="text-white font-bold">0.3s</strong> Load Speed
-          </span>
-          <span aria-hidden="true" className="text-zinc-500">
-            ·
-          </span>
-          <span>
-            <strong className="text-white font-bold">99+</strong> Google PageSpeed
-          </span>
-          <span aria-hidden="true" className="text-zinc-500">
-            ·
-          </span>
-          <span>
-            <strong className="text-white font-bold">24/7</strong> Direct Team Support
-          </span>
-        </div>
-
-        {/* Primary & Secondary Action Buttons */}
-        <div className="pt-5 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
-          <button
-            type="button"
-            onClick={openContactModal}
-            className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-4.5 text-base sm:text-lg font-extrabold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 shadow-xl whitespace-nowrap shrink-0 cursor-pointer"
+        <BlurKex trigger="mount" direction="up" delay={0.14} blurPx={16} duration={1.05}>
+          {/* Confirmed Premium Headline */}
+          <h1
+            itemProp="slogan"
+            className="font-extrabold tracking-tight text-white font-[Outfit] leading-[1.06]"
+            style={{
+              fontSize: 'clamp(2.45rem, 5vw, 4.35rem)',
+              textWrap: 'balance',
+            }}
           >
-            <span>Start Your Project</span>
-            <ArrowUpRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </button>
+            Crafting Fast Websites, Apps &amp; Digital Brands
+          </h1>
+        </BlurKex>
 
-          <button
-            type="button"
-            onClick={() => onNavigatePage('services')}
-            className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-4.5 text-base sm:text-lg font-bold text-white hover:bg-white/10 border-2 border-white/40 hover:border-white/70 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 whitespace-nowrap shrink-0 cursor-pointer"
+        <BlurKex trigger="mount" direction="up" delay={0.24} blurPx={14}>
+          {/* Simple, High-Impact Description of What Kexora Does */}
+          <p
+            itemProp="description"
+            className="text-base sm:text-xl text-zinc-200 max-w-2xl mx-auto leading-relaxed font-normal"
           >
-            <span>Explore Our Services</span>
-            <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
-          </button>
-        </div>
+            We design and code high-speed custom websites, e-commerce stores, Android &amp; iOS mobile apps, and games—backed by Google SEO, creative branding, and complete business registration.
+          </p>
+        </BlurKex>
 
-        {/* Clean Unboxed Service Pillars Strip */}
-        <ul
-          aria-label="Kexora Core Capabilities"
-          className="pt-8 border-t border-white/15 text-xs sm:text-sm text-zinc-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
-        >
-          <li>Custom Websites &amp; E-Commerce</li>
-          <li aria-hidden="true" className="text-zinc-500">
-            ·
-          </li>
-          <li>Android &amp; iOS Mobile Apps</li>
-          <li aria-hidden="true" className="text-zinc-500">
-            ·
-          </li>
-          <li>2D &amp; 3D Game Development</li>
-          <li aria-hidden="true" className="text-zinc-500">
-            ·
-          </li>
-          <li>Google SEO &amp; AI-SEO</li>
-          <li aria-hidden="true" className="text-zinc-500">
-            ·
-          </li>
-          <li>Logo, Video &amp; GST/ISO Setup</li>
-        </ul>
-      </motion.div>
+        <BlurKex trigger="mount" direction="up" delay={0.34} blurPx={12}>
+          {/* Quiet Quantitative Proof Bar */}
+          <div className="pt-1 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs sm:text-sm font-mono text-zinc-300 tabular-nums">
+            <span>
+              <strong className="text-white font-bold">0.3s</strong> Load Speed
+            </span>
+            <span aria-hidden="true" className="text-zinc-500">
+              ·
+            </span>
+            <span>
+              <strong className="text-white font-bold">99+</strong> Google PageSpeed
+            </span>
+            <span aria-hidden="true" className="text-zinc-500">
+              ·
+            </span>
+            <span>
+              <strong className="text-white font-bold">24/7</strong> Direct Team Support
+            </span>
+          </div>
+        </BlurKex>
+
+        <BlurKex trigger="mount" direction="up" delay={0.44} blurPx={14}>
+          {/* Primary & Secondary Action Buttons */}
+          <div className="pt-5 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
+            <button
+              type="button"
+              onClick={openContactModal}
+              className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-4.5 text-base sm:text-lg font-extrabold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 shadow-xl whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <span>Start Your Project</span>
+              <ArrowUpRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onNavigatePage('services')}
+              className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-4.5 text-base sm:text-lg font-bold text-white hover:bg-white/10 border-2 border-white/40 hover:border-white/70 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <span>Explore Our Services</span>
+              <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
+            </button>
+          </div>
+        </BlurKex>
+
+        <BlurKex trigger="mount" direction="up" delay={0.54} blurPx={10}>
+          {/* Clean Unboxed Service Pillars Strip */}
+          <ul
+            aria-label="Kexora Core Capabilities"
+            className="pt-8 border-t border-white/15 text-xs sm:text-sm text-zinc-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
+          >
+            <li>Custom Websites &amp; E-Commerce</li>
+            <li aria-hidden="true" className="text-zinc-500">
+              ·
+            </li>
+            <li>Android &amp; iOS Mobile Apps</li>
+            <li aria-hidden="true" className="text-zinc-500">
+              ·
+            </li>
+            <li>2D &amp; 3D Game Development</li>
+            <li aria-hidden="true" className="text-zinc-500">
+              ·
+            </li>
+            <li>Google SEO &amp; AI-SEO</li>
+            <li aria-hidden="true" className="text-zinc-500">
+              ·
+            </li>
+            <li>Logo, Video &amp; GST/ISO Setup</li>
+          </ul>
+        </BlurKex>
+      </div>
     </section>
   );
 };

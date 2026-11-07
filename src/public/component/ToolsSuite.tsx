@@ -4,12 +4,12 @@ import { WhatsAppReaderTool } from './tools/WhatsAppReaderTool';
 import { SeoAuditorTool } from './tools/SeoAuditorTool';
 import { CostEstimatorTool } from './tools/CostEstimatorTool';
 import { SchemaBuilderTool } from './tools/SchemaBuilderTool';
+import { BlurKex } from '../../effect';
 import {
   MessageSquare,
   Gauge,
   Calculator,
   FileCode,
-  ExternalLink,
   ArrowRight,
 } from 'lucide-react';
 
@@ -71,7 +71,11 @@ export const ToolsSuite: React.FC<ToolsSuiteProps> = ({
       className="py-20 bg-white text-zinc-950 border-b border-zinc-200 select-none"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6">
+        <BlurKex
+          direction="up"
+          blurPx={14}
+          className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-6"
+        >
           <div className="max-w-xl">
             <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2">
               Section 05 · Our Tools &amp; Interactive Client Utilities
@@ -110,14 +114,18 @@ export const ToolsSuite: React.FC<ToolsSuiteProps> = ({
               );
             })}
           </div>
-        </div>
+        </BlurKex>
 
         {/* Dedicated Page Promotion Bar */}
-        <div className="mb-6 px-5 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200/90 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+        <BlurKex
+          direction="up"
+          delay={0.08}
+          blurPx={12}
+          className="mb-6 px-5 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200/90 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm"
+        >
           <div className="flex items-center gap-2 text-zinc-600">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span>
-              Now with dedicated dynamic slug URLs for every utility:
+              Dedicated dynamic slug URL for this utility:
             </span>
             <code className="font-mono font-bold text-zinc-950 bg-white px-2 py-0.5 rounded border border-zinc-200">
               /our-tools/{activeTab}
@@ -132,28 +140,30 @@ export const ToolsSuite: React.FC<ToolsSuiteProps> = ({
             <span>Open in Full Dedicated Page</span>
             <ArrowRight className="w-4 h-4" />
           </button>
-        </div>
+        </BlurKex>
 
         {/* Active Tool View */}
-        {activeTab === 'whatsapp-reader' && <WhatsAppReaderTool />}
-        {activeTab === 'seo-audit' && (
-          <SeoAuditorTool
-            onEnquireUpgrade={(url) =>
-              openContactModalWithDetails &&
-              openContactModalWithDetails(
-                `Requested speed and AI-SEO overhaul for audited domain: ${url}`
-              )
-            }
-          />
-        )}
-        {activeTab === 'cost-calculator' && (
-          <CostEstimatorTool
-            onLockInEstimate={(details) =>
-              openContactModalWithDetails && openContactModalWithDetails(details)
-            }
-          />
-        )}
-        {activeTab === 'schema-generator' && <SchemaBuilderTool />}
+        <BlurKex key={activeTab} direction="up" blurPx={14}>
+          {activeTab === 'whatsapp-reader' && <WhatsAppReaderTool />}
+          {activeTab === 'seo-audit' && (
+            <SeoAuditorTool
+              onEnquireUpgrade={(url) =>
+                openContactModalWithDetails &&
+                openContactModalWithDetails(
+                  `Requested speed and AI-SEO overhaul for audited domain: ${url}`
+                )
+              }
+            />
+          )}
+          {activeTab === 'cost-calculator' && (
+            <CostEstimatorTool
+              onLockInEstimate={(details) =>
+                openContactModalWithDetails && openContactModalWithDetails(details)
+              }
+            />
+          )}
+          {activeTab === 'schema-generator' && <SchemaBuilderTool />}
+        </BlurKex>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import { PageBanner } from '../component/PageBanner';
 import { ServicesBento } from '../component/ServicesBento';
 import { SeoHubSection } from '../component/SeoHubSection';
 import { Portfolio } from '../component/Portfolio';
+import { BlurKex } from '../../effect';
 import { CheckCircle2 } from 'lucide-react';
 
 interface ServicesPageProps {
@@ -63,7 +64,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       {/* 4-Phase Engineering Process */}
       <section className="py-20 bg-zinc-50 text-zinc-950 border-b border-zinc-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
+          <BlurKex direction="up" blurPx={14} className="mb-12">
             <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2">
               How Kexora Executes · Predictable Engineering Workflow
             </div>
@@ -73,12 +74,15 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             >
               4-Step Delivery from Strategy to 99+ PageSpeed Launch
             </h2>
-          </div>
+          </BlurKex>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {deliverySteps.map((item) => (
-              <div
+            {deliverySteps.map((item, idx) => (
+              <BlurKex
                 key={item.step}
+                direction="up"
+                staggerIndex={idx}
+                blurPx={14}
                 className="p-6 rounded-2xl bg-white border border-zinc-200 flex flex-col justify-between space-y-5"
               >
                 <div className="space-y-3">
@@ -97,7 +101,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                   <CheckCircle2 className="w-4 h-4 text-zinc-950 shrink-0" />
                   <span>{item.deliverable}</span>
                 </div>
-              </div>
+              </BlurKex>
             ))}
           </div>
         </div>

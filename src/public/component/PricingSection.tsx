@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PRICING_PLANS } from '../../data/agencyData';
 import { NEED_BASED_PRICING_CATALOG, NeedBasedPricingTier } from '../../data/needBasedPricingData';
 import { CurrencyCode, ServicePillarId } from '../../types';
+import { BlurKex } from '../../effect';
 import {
   Check,
   ArrowRight,
@@ -72,7 +73,11 @@ export const PricingSection: React.FC<PricingProps> = ({
     <section id="pricing" className="py-20 bg-zinc-50 text-zinc-950 border-b border-zinc-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Header & Value Proposition */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+        <BlurKex
+          direction="up"
+          blurPx={14}
+          className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6"
+        >
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold mb-3 shadow-xs">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
@@ -132,10 +137,10 @@ export const PricingSection: React.FC<PricingProps> = ({
               </button>
             )}
           </div>
-        </div>
+        </BlurKex>
 
         {/* Mode Switcher Tabs: By Business Need vs 3 Monthly Retainers */}
-        <div className="flex justify-center mb-10">
+        <BlurKex direction="up" delay={0.08} blurPx={12} className="flex justify-center mb-10">
           <div className="inline-flex p-1.5 bg-zinc-200/80 rounded-2xl border border-zinc-300/80 shadow-xs">
             <button
               type="button"
@@ -163,11 +168,11 @@ export const PricingSection: React.FC<PricingProps> = ({
               <span>3 All-Inclusive Monthly Plans</span>
             </button>
           </div>
-        </div>
+        </BlurKex>
 
         {/* ---------------- MODE 1: PRICING BY YOUR NEED (ZAROORAT KE HISAAB SE) ---------------- */}
         {pricingMode === 'by-need' && (
-          <div className="space-y-8">
+          <BlurKex direction="up" blurPx={14} className="space-y-8">
             {/* Need Selection Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
               {NEED_BASED_PRICING_CATALOG.map((item) => {
@@ -409,7 +414,7 @@ export const PricingSection: React.FC<PricingProps> = ({
                 </div>
               </div>
             </div>
-          </div>
+          </BlurKex>
         )}
 
         {/* ---------------- MODE 2: 3 ALL-INCLUSIVE MONTHLY PLANS (REDESIGNED & CLEAN) ---------------- */}
@@ -431,11 +436,13 @@ export const PricingSection: React.FC<PricingProps> = ({
 
               const isPopular = Boolean(plan.popular);
               const savedOnSetup = marketSetup - setup;
-              const savedPerMonth = marketMonthly - monthly;
 
               return (
-                <div
+                <BlurKex
                   key={plan.id}
+                  direction="up"
+                  staggerIndex={index}
+                  blurPx={15}
                   className={`relative p-8 rounded-3xl flex flex-col justify-between transition-all duration-300 ${
                     isPopular
                       ? 'bg-zinc-950 text-white border-2 border-zinc-900 shadow-xl'
@@ -587,14 +594,14 @@ export const PricingSection: React.FC<PricingProps> = ({
                     <span>{plan.ctaText}</span>
                     <ArrowRight className="w-5 h-5" />
                   </button>
-                </div>
+                </BlurKex>
               );
             })}
           </div>
         )}
 
         {/* ---------------- SEO & AI SEARCH ENGINE OPTIMIZATION ACCORDION & TELEMETRY ---------------- */}
-        <div className="mt-16 pt-12 border-t border-zinc-200">
+        <BlurKex direction="up" blurPx={14} className="mt-16 pt-12 border-t border-zinc-200">
           <div className="max-w-3xl mb-8">
             <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">
               AI-Search &amp; Google Transparency
@@ -644,7 +651,7 @@ export const PricingSection: React.FC<PricingProps> = ({
               </p>
             </div>
           </div>
-        </div>
+        </BlurKex>
       </div>
     </section>
   );

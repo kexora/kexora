@@ -8,6 +8,7 @@ import { SeoAuditorTool } from '../component/tools/SeoAuditorTool';
 import { CostEstimatorTool } from '../component/tools/CostEstimatorTool';
 import { SchemaBuilderTool } from '../component/tools/SchemaBuilderTool';
 import { DigiSagunTool } from '../component/tools/DigiSagunTool';
+import { BlurKex } from '../../effect';
 import {
   MessageSquare,
   Gauge,
@@ -111,7 +112,7 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
       {/* 2. Key Telemetry Strip */}
       <section className="py-6 bg-zinc-950 text-white border-b border-zinc-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <BlurKex direction="up" blurPx={12} className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="space-y-1">
               <div className="text-xl sm:text-2xl font-extrabold font-[Outfit] text-white">
                 4 Micro-Apps
@@ -136,7 +137,7 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
               </div>
               <div className="text-xs text-zinc-400">Dynamic Slug Routing</div>
             </div>
-          </div>
+          </BlurKex>
         </div>
       </section>
 
@@ -144,7 +145,11 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
       <section id="directory" className="py-16 sm:py-20 bg-zinc-50 border-b border-zinc-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           {/* Section Heading & Category Filter Bar */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-zinc-200">
+          <BlurKex
+            direction="up"
+            blurPx={14}
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-zinc-200"
+          >
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">
                 Kexora Utility Directory
@@ -180,10 +185,10 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
                 </button>
               )}
             </div>
-          </div>
+          </BlurKex>
 
           {/* Category Filter Chips */}
-          <div className="flex flex-wrap items-center gap-2">
+          <BlurKex direction="up" delay={0.06} blurPx={10} className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
               <button
                 key={cat.id}
@@ -198,7 +203,7 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
                 {cat.label}
               </button>
             ))}
-          </div>
+          </BlurKex>
 
           {/* Tools List Cards */}
           <div className="space-y-8">
@@ -223,11 +228,14 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
                 </button>
               </div>
             ) : (
-              filteredTools.map((tool) => {
+              filteredTools.map((tool, idx) => {
                 const isExpanded = expandedPreviewSlug === tool.slug;
                 return (
-                  <div
+                  <BlurKex
                     key={tool.slug}
+                    direction="up"
+                    staggerIndex={idx}
+                    blurPx={15}
                     className="bg-white rounded-3xl border border-zinc-200 hover:border-zinc-300/80 transition-all shadow-xs overflow-hidden"
                   >
                     {/* Tool Header & Summary */}
@@ -392,7 +400,7 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
                         {tool.slug === 'schema-generator' && <SchemaBuilderTool />}
                       </div>
                     )}
-                  </div>
+                  </BlurKex>
                 );
               })
             )}
@@ -403,7 +411,7 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
       {/* 4. Cultural PWA Spotlight: Digi Sagun */}
       <section className="py-20 bg-white border-b border-zinc-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="max-w-3xl">
+          <BlurKex direction="up" blurPx={14} className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold mb-3">
               <Smartphone className="w-3.5 h-3.5 text-amber-700" />
               <span>Progressive Web App Innovation</span>
@@ -414,7 +422,7 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
             <p className="text-xs sm:text-sm text-zinc-600 mt-2 leading-relaxed">
               In addition to developer tools, Kexora builds real-world consumer PWAs. Digi Sagun digitizes the traditional Indian wedding gift diary (Sagun Bahi) into an offline-first mobile app that works seamlessly in rural and urban settings with zero connectivity.
             </p>
-          </div>
+          </BlurKex>
 
           <DigiSagunTool />
         </div>

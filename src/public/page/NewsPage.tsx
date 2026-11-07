@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ActiveTab, NewsArticle } from '../../types';
 import { PageBanner } from '../component/PageBanner';
 import { NEWS_ARTICLES } from '../../data/agencyData';
+import { BlurKex } from '../../effect';
 import { ArrowUpRight, X, Check } from 'lucide-react';
 
 interface NewsPageProps {
@@ -38,7 +39,11 @@ export const NewsPage: React.FC<NewsPageProps> = ({
       <section className="py-20 bg-white text-zinc-950 border-b border-zinc-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Category Filter Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12">
+          <BlurKex
+            direction="up"
+            blurPx={14}
+            className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12"
+          >
             <div className="text-sm font-bold text-zinc-950">
               Showing {filteredArticles.length} Published Engineering Reports
             </div>
@@ -63,13 +68,17 @@ export const NewsPage: React.FC<NewsPageProps> = ({
                 </button>
               ))}
             </div>
-          </div>
+          </BlurKex>
 
           {/* Articles Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {filteredArticles.map((article) => (
-              <article
+            {filteredArticles.map((article, idx) => (
+              <BlurKex
                 key={article.id}
+                as="article"
+                direction="up"
+                staggerIndex={idx}
+                blurPx={14}
                 className="p-7 rounded-2xl bg-zinc-50 border border-zinc-200 hover:border-zinc-950 transition-colors flex flex-col justify-between space-y-6"
               >
                 <div className="space-y-4">
@@ -109,12 +118,16 @@ export const NewsPage: React.FC<NewsPageProps> = ({
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
-              </article>
+              </BlurKex>
             ))}
           </div>
 
           {/* Featured Deep-Dive Summary Box */}
-          <div className="mt-14 p-8 rounded-2xl bg-zinc-950 text-white grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <BlurKex
+            direction="up"
+            blurPx={16}
+            className="mt-14 p-8 rounded-2xl bg-zinc-950 text-white grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+          >
             <div className="lg:col-span-8 space-y-3">
               <div className="text-xs font-bold uppercase tracking-wider text-zinc-400">
                 Kexora Technical Advisory · Free Website Architecture Review
@@ -145,7 +158,7 @@ export const NewsPage: React.FC<NewsPageProps> = ({
                 Request Free Technical Review
               </button>
             </div>
-          </div>
+          </BlurKex>
         </div>
       </section>
 

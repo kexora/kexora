@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ActiveTab } from '../../types';
 import { KEXORA_COMPANY_INFO } from '../../data/agencyData';
 import { ProtectedImage, KEXORA_MEDIA_VAULT } from '../component/ProtectedImage';
+import { BlurKex } from '../../effect';
 import {
   ArrowUpRight,
   MapPin,
@@ -179,7 +180,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="space-y-3 max-w-3xl">
+          <BlurKex trigger="mount" direction="up" delay={0.08} blurPx={16} className="space-y-3 max-w-3xl">
             <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white font-[Outfit]">
               About Kexora
             </h1>
@@ -190,10 +191,16 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
               </span>{' '}
               with global engineering standards.
             </p>
-          </div>
+          </BlurKex>
 
           {/* Open Stats Row (No Borders / No Boxes) */}
-          <div className="flex flex-wrap items-center gap-x-12 gap-y-4 pt-2">
+          <BlurKex
+            trigger="mount"
+            direction="up"
+            delay={0.2}
+            blurPx={14}
+            className="flex flex-wrap items-center gap-x-12 gap-y-4 pt-2"
+          >
             {agencyStats.map((stat) => (
               <div key={stat.label}>
                 <div className="text-2xl sm:text-3xl font-extrabold text-white font-[Outfit] tabular-nums">
@@ -202,7 +209,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
                 <div className="text-xs text-zinc-400 mt-0.5">{stat.label}</div>
               </div>
             ))}
-          </div>
+          </BlurKex>
         </div>
       </section>
 
@@ -211,7 +218,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 items-start">
             {/* Left Sticky Sidebar Navigation */}
-            <aside className="md:col-span-3 md:sticky md:top-28 space-y-8">
+            <BlurKex direction="right" blurPx={12} className="md:col-span-3 md:sticky md:top-28 space-y-8">
               <nav aria-label="About Kexora Sections" className="space-y-3">
                 {sidebarLinks.map((link) => {
                   const isActive = activeSection === link.id;
@@ -256,10 +263,10 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
-            </aside>
+            </BlurKex>
 
             {/* Right Open Editorial Column — All Details Preserved, No Boxy Wrappers */}
-            <div className="md:col-span-9 space-y-14 text-zinc-800">
+            <BlurKex direction="up" delay={0.1} blurPx={14} className="md:col-span-9 space-y-14 text-zinc-800">
               {/* 1. Who We Are */}
               <div id="who-we-are" className="space-y-4 scroll-mt-28">
                 <h2 className="text-2xl sm:text-[2.1rem] font-bold tracking-tight text-zinc-950 font-[Outfit]">
@@ -396,7 +403,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
                   ))}
                 </ul>
               </div>
-            </div>
+            </BlurKex>
           </div>
         </div>
       </section>
@@ -548,7 +555,11 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           {/* Header Row with Interactive Phase Selector */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <BlurKex
+            direction="up"
+            blurPx={14}
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6"
+          >
             <div className="max-w-2xl space-y-3">
               <div className="text-xs font-semibold tracking-wider uppercase text-zinc-500">
                 Our Evolution · Siwan, Bihar (841226) to Global Delivery
@@ -590,7 +601,7 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
                 );
               })}
             </div>
-          </div>
+          </BlurKex>
 
           {/* Continuous Horizontal Timeline Track + Open 4-Column Architectural Flow */}
           <div className="relative">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ActiveTab, ToolTab } from '../../types';
 import { KEXORA_COMPANY_INFO } from '../../data/agencyData';
+import { BlurKex } from '../../effect';
 import {
   Mail,
   MapPin,
@@ -63,7 +64,11 @@ export const Footer: React.FC<FooterProps> = ({
     <footer className="bg-zinc-950 text-zinc-400 border-t border-zinc-900 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 1. Top Editorial Call-to-Action Strip */}
-        <div className="py-12 sm:py-16 border-b border-zinc-800/80 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+        <BlurKex
+          direction="up"
+          blurPx={14}
+          className="py-12 sm:py-16 border-b border-zinc-800/80 flex flex-col lg:flex-row lg:items-end justify-between gap-8"
+        >
           <div className="space-y-3 max-w-2xl">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">
               Kexora Studio · Siwan, Bihar (841226) to Global Delivery
@@ -107,7 +112,7 @@ export const Footer: React.FC<FooterProps> = ({
               )}
             </button>
           </div>
-        </div>
+        </BlurKex>
 
         {/* 2. Main Multi-Column Navigation & Studio Architecture */}
         <div className="py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">

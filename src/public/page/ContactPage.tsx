@@ -3,6 +3,7 @@ import { ActiveTab } from '../../types';
 import { KEXORA_COMPANY_INFO } from '../../data/agencyData';
 import { ContactForm } from '../component/ContactForm';
 import { ProtectedImage, KEXORA_MEDIA_VAULT } from '../component/ProtectedImage';
+import { BlurKex } from '../../effect';
 import {
   Mail,
   MapPin,
@@ -64,7 +65,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="space-y-3 max-w-3xl">
+          <BlurKex trigger="mount" direction="up" delay={0.08} blurPx={16} className="space-y-3 max-w-3xl">
             <div className="text-xs font-semibold uppercase tracking-widest text-zinc-300">
               Contact Kexora Studio · Direct Engineering Desk
             </div>
@@ -81,10 +82,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               </span>{' '}
               — serving businesses across India and globally.
             </p>
-          </div>
+          </BlurKex>
 
           {/* Open Studio Highlights Row */}
-          <div className="flex flex-wrap items-center gap-x-12 gap-y-4 pt-2">
+          <BlurKex
+            trigger="mount"
+            direction="up"
+            delay={0.2}
+            blurPx={14}
+            className="flex flex-wrap items-center gap-x-12 gap-y-4 pt-2"
+          >
             <div>
               <div className="text-2xl sm:text-3xl font-extrabold text-white font-[Outfit] tabular-nums">
                 1–2 Days
@@ -117,7 +124,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 Target Load-Time Standard
               </div>
             </div>
-          </div>
+          </BlurKex>
         </div>
       </section>
 
@@ -126,7 +133,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
             {/* Left Column: Direct Studio Info, Leadership & Onboarding Flow */}
-            <div className="lg:col-span-5 space-y-8">
+            <BlurKex direction="right" blurPx={14} className="lg:col-span-5 space-y-8">
               {/* Direct Contact Details */}
               <div className="space-y-6">
                 <div className="space-y-2">
@@ -307,16 +314,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
-            </div>
+            </BlurKex>
 
             {/* Right Column: Interactive Contact Form Component */}
-            <div className="lg:col-span-7">
+            <BlurKex direction="left" delay={0.12} blurPx={14} className="lg:col-span-7">
               <ContactForm
                 initialService={initialService}
                 initialDetails={initialDetails}
                 variant="page"
               />
-            </div>
+            </BlurKex>
           </div>
         </div>
       </section>
