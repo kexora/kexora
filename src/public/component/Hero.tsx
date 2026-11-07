@@ -101,23 +101,23 @@ export const Hero: React.FC<HeroProps> = ({
         </div>
 
         {/* Primary & Secondary Action Buttons */}
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="pt-5 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5">
           <button
             type="button"
             onClick={openContactModal}
-            className="group w-full sm:w-auto px-8 py-4 text-sm font-bold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all duration-200 flex items-center justify-center gap-2 shadow-lg whitespace-nowrap shrink-0"
+            className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-4.5 text-base sm:text-lg font-extrabold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 shadow-xl whitespace-nowrap shrink-0 cursor-pointer"
           >
             <span>Start Your Project</span>
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
 
           <button
             type="button"
             onClick={() => onNavigatePage('services')}
-            className="group w-full sm:w-auto px-8 py-4 text-sm font-semibold text-white hover:bg-white/10 border border-white/35 rounded-full transition-all duration-200 flex items-center justify-center gap-2 whitespace-nowrap shrink-0"
+            className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-4.5 text-base sm:text-lg font-bold text-white hover:bg-white/10 border-2 border-white/40 hover:border-white/70 rounded-full transition-all duration-200 flex items-center justify-center gap-2.5 whitespace-nowrap shrink-0 cursor-pointer"
           >
             <span>Explore Our Services</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
           </button>
         </div>
 

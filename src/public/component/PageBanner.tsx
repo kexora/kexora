@@ -71,10 +71,10 @@ export const PageBanner: React.FC<PageBannerProps> = ({
               <button
                 type="button"
                 onClick={onPrimaryCta}
-                className="px-6 py-3.5 text-xs font-bold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-colors inline-flex items-center gap-2 whitespace-nowrap shrink-0"
+                className="px-7 py-4 text-sm sm:text-base font-extrabold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all inline-flex items-center gap-2.5 whitespace-nowrap shrink-0 shadow-lg cursor-pointer"
               >
                 <span>{primaryCtaLabel}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-5 h-5" />
               </button>
             </div>
           )}

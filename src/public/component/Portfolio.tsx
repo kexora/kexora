@@ -45,9 +45,9 @@ export const Portfolio: React.FC<PortfolioProps> = ({ openContactModal }) => {
                 key={tab.id}
                 type="button"
                 onClick={() => setFilter(tab.id)}
-                className={`px-4 py-2 text-xs font-semibold rounded-full transition-all duration-300 whitespace-nowrap shrink-0 ${
+                className={`px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-300 whitespace-nowrap shrink-0 cursor-pointer ${
                   filter === tab.id
-                    ? 'bg-zinc-950 text-white font-bold shadow-sm'
+                    ? 'bg-zinc-950 text-white shadow-sm'
                     : 'text-zinc-600 hover:text-zinc-950'
                 }`}
               >
@@ -102,10 +102,10 @@ export const Portfolio: React.FC<PortfolioProps> = ({ openContactModal }) => {
                 <button
                   type="button"
                   onClick={() => setSelectedCaseStudy(study)}
-                  className="px-3.5 py-1.5 text-xs font-bold text-zinc-950 bg-white group-hover:bg-zinc-950 group-hover:text-white border border-zinc-300 group-hover:border-zinc-950 rounded-full flex items-center gap-1 whitespace-nowrap shrink-0 transition-all duration-300"
+                  className="px-4.5 py-2 text-sm font-bold text-zinc-950 bg-white group-hover:bg-zinc-950 group-hover:text-white border border-zinc-300 group-hover:border-zinc-950 rounded-full flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-all duration-300 cursor-pointer"
                 >
                   <span>View Details</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  <ArrowUpRight className="w-4 h-4" />
                 </button>
               </div>
             </article>

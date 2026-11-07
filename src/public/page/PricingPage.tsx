@@ -559,7 +559,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                       <button
                         type="button"
                         onClick={() => toggleBundleService(srv.id)}
-                        className={`py-3 px-3 text-xs font-bold rounded-full border transition-all duration-200 inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 ${
+                        className={`py-3 px-3.5 text-sm font-bold rounded-full border transition-all duration-200 inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                           isSelectedInBundle
                             ? 'bg-zinc-800 border-zinc-700 text-white hover:bg-zinc-700'
                             : 'bg-white border-zinc-300 text-zinc-800 hover:border-zinc-950 hover:text-zinc-950'
@@ -567,12 +567,12 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                       >
                         {isSelectedInBundle ? (
                           <>
-                            <Check className="w-3.5 h-3.5" />
+                            <Check className="w-4 h-4" />
                             <span>In Bundle</span>
                           </>
                         ) : (
                           <>
-                            <Plus className="w-3.5 h-3.5" />
+                            <Plus className="w-4 h-4" />
                             <span>Add Bundle</span>
                           </>
                         )}
@@ -586,14 +586,14 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                             `Hi Kexora Team, I would like to book "${srv.title}" at Kexora's 30%-off studio rate of ${symbol}${kexoraPrice.toLocaleString()} (${srv.billingLabel}, saving ${symbol}${savedAmount.toLocaleString()} vs the ${symbol}${marketPrice.toLocaleString()} market rate). Please share the next steps.`
                           )
                         }
-                        className={`py-3 px-3 text-xs font-bold rounded-full transition-all duration-200 inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 ${
+                        className={`py-3 px-3.5 text-sm font-extrabold rounded-full transition-all duration-200 inline-flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                           isSelectedInBundle
-                            ? 'bg-white text-zinc-950 hover:bg-zinc-200'
-                            : 'bg-zinc-950 text-white hover:bg-zinc-800'
+                            ? 'bg-white text-zinc-950 hover:bg-zinc-200 shadow-sm'
+                            : 'bg-zinc-950 text-white hover:bg-zinc-800 shadow-sm'
                         }`}
                       >
                         <span>Book Now</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <ArrowUpRight className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
@@ -715,14 +715,14 @@ export const PricingPage: React.FC<PricingPageProps> = ({
                 <button
                   type="button"
                   onClick={() => setSelectedBundleIds([])}
-                  className="px-3.5 py-2.5 text-xs font-bold text-zinc-300 hover:text-white bg-white/10 hover:bg-white/15 rounded-full transition-colors whitespace-nowrap shrink-0"
+                  className="px-4 py-2.5 text-xs sm:text-sm font-bold text-zinc-300 hover:text-white bg-white/10 hover:bg-white/15 rounded-full transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 >
                   Clear
                 </button>
                 <button
                   type="button"
                   onClick={handleEnquireBundle}
-                  className="px-5 py-2.5 text-xs sm:text-sm font-bold bg-white hover:bg-zinc-200 text-zinc-950 rounded-full transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
+                  className="px-6 py-3 text-sm sm:text-base font-extrabold bg-white hover:bg-zinc-200 text-zinc-950 rounded-full transition-colors inline-flex items-center gap-2 whitespace-nowrap shrink-0 shadow-md cursor-pointer"
                 >
                   <span>Claim 30% Off Bundle Quote</span>
                   <ArrowUpRight className="w-4 h-4" />

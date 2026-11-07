@@ -98,9 +98,9 @@ export const ToolsSuite: React.FC<ToolsSuiteProps> = ({
                   role="tab"
                   aria-selected={isSelected}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-3.5 py-2 text-xs font-semibold rounded-xl transition-all flex items-center gap-2 whitespace-nowrap shrink-0 ${
+                  className={`px-4 py-2.5 text-sm font-bold rounded-xl transition-all flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer ${
                     isSelected
-                      ? 'bg-zinc-950 text-white font-bold shadow-xs'
+                      ? 'bg-zinc-950 text-white shadow-xs'
                       : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-200/60'
                   }`}
                 >
@@ -113,7 +113,7 @@ export const ToolsSuite: React.FC<ToolsSuiteProps> = ({
         </div>
 
         {/* Dedicated Page Promotion Bar */}
-        <div className="mb-6 px-5 py-3 rounded-2xl bg-zinc-50 border border-zinc-200/90 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="mb-6 px-5 py-3.5 rounded-2xl bg-zinc-50 border border-zinc-200/90 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
           <div className="flex items-center gap-2 text-zinc-600">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span>
@@ -127,10 +127,10 @@ export const ToolsSuite: React.FC<ToolsSuiteProps> = ({
           <button
             type="button"
             onClick={() => handleOpenDedicated(activeTab)}
-            className="font-bold text-zinc-950 hover:underline flex items-center gap-1 transition-colors"
+            className="text-sm font-bold text-zinc-950 hover:underline flex items-center gap-1.5 transition-colors cursor-pointer"
           >
             <span>Open in Full Dedicated Page</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 

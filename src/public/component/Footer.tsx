@@ -83,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({
                 e.preventDefault();
                 openContactModal('Web Design & Custom Development');
               }}
-              className="group px-6 py-3.5 text-xs sm:text-sm font-bold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all duration-200 inline-flex items-center gap-2 whitespace-nowrap shrink-0 shadow-sm"
+              className="group px-7 py-4 text-sm sm:text-base font-extrabold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all duration-200 inline-flex items-center gap-2.5 whitespace-nowrap shrink-0 shadow-md cursor-pointer"
             >
               <span>Start Your Project</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -92,7 +92,7 @@ export const Footer: React.FC<FooterProps> = ({
             <button
               type="button"
               onClick={handleCopyEmail}
-              className="px-5 py-3.5 text-xs sm:text-sm font-semibold text-zinc-200 hover:text-white bg-zinc-900 hover:bg-zinc-800/90 border border-zinc-800 rounded-full transition-colors inline-flex items-center gap-2 whitespace-nowrap shrink-0"
+              className="px-6 py-4 text-sm font-bold text-zinc-200 hover:text-white bg-zinc-900 hover:bg-zinc-800/90 border border-zinc-800 rounded-full transition-colors inline-flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
             >
               {copiedEmail ? (
                 <>
@@ -101,7 +101,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5 text-zinc-400" />
+                  <Copy className="w-4 h-4 text-zinc-400" />
                   <span>{KEXORA_COMPANY_INFO.contact.email}</span>
                 </>
               )}
@@ -262,10 +262,10 @@ export const Footer: React.FC<FooterProps> = ({
               type="button"
               onClick={scrollToTop}
               aria-label="Scroll back to top"
-              className="group px-3.5 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-colors inline-flex items-center gap-1.5 text-xs font-semibold"
+              className="group px-4 py-2 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition-colors inline-flex items-center gap-2 text-xs sm:text-sm font-bold cursor-pointer"
             >
               <span>Back to Top</span>
-              <ArrowUp className="w-3.5 h-3.5 transition-transform duration-200 group-hover:-translate-y-0.5" />
+              <ArrowUp className="w-4 h-4 transition-transform duration-200 group-hover:-translate-y-0.5" />
             </button>
           </div>
         </div>

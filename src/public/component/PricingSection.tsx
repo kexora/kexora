@@ -100,7 +100,7 @@ export const PricingSection: React.FC<PricingProps> = ({
               <button
                 type="button"
                 onClick={() => setCurrency('INR')}
-                className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all ${
+                className={`px-4 py-2 text-sm font-bold rounded-xl transition-all cursor-pointer ${
                   currency === 'INR'
                     ? 'bg-zinc-950 text-white shadow-xs'
                     : 'text-zinc-600 hover:text-zinc-950'
@@ -111,7 +111,7 @@ export const PricingSection: React.FC<PricingProps> = ({
               <button
                 type="button"
                 onClick={() => setCurrency('USD')}
-                className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all ${
+                className={`px-4 py-2 text-sm font-bold rounded-xl transition-all cursor-pointer ${
                   currency === 'USD'
                     ? 'bg-zinc-950 text-white shadow-xs'
                     : 'text-zinc-600 hover:text-zinc-950'
@@ -125,10 +125,10 @@ export const PricingSection: React.FC<PricingProps> = ({
               <button
                 type="button"
                 onClick={onViewAllPage}
-                className="px-4 py-2 text-xs font-bold text-zinc-950 bg-white hover:bg-zinc-100 border border-zinc-300 rounded-2xl transition-all flex items-center gap-1.5 shadow-xs whitespace-nowrap"
+                className="px-5 py-2.5 text-sm font-bold text-zinc-950 bg-white hover:bg-zinc-100 border border-zinc-300 rounded-2xl transition-all flex items-center gap-2 shadow-xs whitespace-nowrap cursor-pointer"
               >
                 <span>View All 24 Services</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -140,7 +140,7 @@ export const PricingSection: React.FC<PricingProps> = ({
             <button
               type="button"
               onClick={() => setPricingMode('by-need')}
-              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
+              className={`px-6 py-3 rounded-xl text-sm sm:text-base font-bold transition-all flex items-center gap-2 cursor-pointer ${
                 pricingMode === 'by-need'
                   ? 'bg-zinc-950 text-white shadow-sm'
                   : 'text-zinc-600 hover:text-zinc-950 hover:bg-white/40'
@@ -153,7 +153,7 @@ export const PricingSection: React.FC<PricingProps> = ({
             <button
               type="button"
               onClick={() => setPricingMode('monthly-plans')}
-              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
+              className={`px-6 py-3 rounded-xl text-sm sm:text-base font-bold transition-all flex items-center gap-2 cursor-pointer ${
                 pricingMode === 'monthly-plans'
                   ? 'bg-zinc-950 text-white shadow-sm'
                   : 'text-zinc-600 hover:text-zinc-950 hover:bg-white/40'
@@ -401,10 +401,10 @@ export const PricingSection: React.FC<PricingProps> = ({
                         `Enquiry for ${activeNeed.headline} (${activeNeed.needCategory}). Budget Scope: ${symbol}${(currency === 'INR' ? activeNeed.setupFeeInr : activeNeed.setupFeeUsd).toLocaleString()} setup + ${symbol}${(currency === 'INR' ? activeNeed.priceInrMonthly : activeNeed.priceUsdMonthly).toLocaleString()}/mo.`
                       )
                     }
-                    className="w-full py-4 text-xs sm:text-sm font-bold text-zinc-950 bg-white hover:bg-zinc-200 rounded-2xl transition-all flex items-center justify-center gap-2 shadow-xs"
+                    className="w-full py-4 text-base sm:text-lg font-extrabold text-zinc-950 bg-white hover:bg-zinc-200 rounded-2xl transition-all flex items-center justify-center gap-2.5 shadow-md cursor-pointer"
                   >
                     <span>{activeNeed.ctaLabel}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-5 h-5" />
                   </button>
                 </div>
               </div>
@@ -578,14 +578,14 @@ export const PricingSection: React.FC<PricingProps> = ({
                         `Booking inquiry for ${plan.name} Plan (${symbol}${monthly.toLocaleString()}/mo + ${symbol}${setup.toLocaleString()} setup).`
                       )
                     }
-                    className={`w-full mt-8 py-3.5 text-xs font-bold rounded-2xl transition-all flex items-center justify-center gap-2 ${
+                    className={`w-full mt-8 py-4 text-sm sm:text-base font-extrabold rounded-2xl transition-all flex items-center justify-center gap-2.5 cursor-pointer ${
                       isPopular
-                        ? 'bg-white text-zinc-950 hover:bg-zinc-200 shadow-sm'
-                        : 'bg-zinc-950 text-white hover:bg-zinc-800 shadow-sm'
+                        ? 'bg-white text-zinc-950 hover:bg-zinc-200 shadow-md'
+                        : 'bg-zinc-950 text-white hover:bg-zinc-800 shadow-md'
                     }`}
                   >
                     <span>{plan.ctaText}</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-5 h-5" />
                   </button>
                 </div>
               );

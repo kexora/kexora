@@ -61,6 +61,15 @@
     font-family: 'KexoraSystem', system-ui, -apple-system, sans-serif !important;
   }
 
+  /* Buttons Typography: Always crisp, bold & legible */
+  html body button,
+  html body button *,
+  html body a[role="button"],
+  html body a[role="button"] * {
+    font-family: 'KexoraSystem', system-ui, -apple-system, sans-serif !important;
+    letter-spacing: -0.01em;
+  }
+
   /* All Headings use src/assets/fonts/heading.otf */
   html body h1,
   html body h1 *,

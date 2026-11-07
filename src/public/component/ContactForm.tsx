@@ -634,13 +634,13 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="group px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-zinc-950 hover:bg-zinc-800 disabled:bg-zinc-400 rounded-full transition-all duration-200 inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 shadow-sm"
+            className="group px-7 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-extrabold text-white bg-zinc-950 hover:bg-zinc-800 disabled:bg-zinc-400 rounded-full transition-all duration-200 inline-flex items-center justify-center gap-2.5 whitespace-nowrap shrink-0 shadow-md cursor-pointer"
           >
             {isSubmitting ? (
               <span>Sending Enquiry...</span>
             ) : (
               <>
-                <Send className="w-3.5 h-3.5" />
+                <Send className="w-4 h-4" />
                 <span>Send Enquiry Now</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </>

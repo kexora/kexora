@@ -67,13 +67,13 @@ export const KEXORA_THEME = {
     cardDarkFeatured:
       'rounded-3xl bg-zinc-950 text-white border-2 border-zinc-950 shadow-[0_24px_60px_rgba(0,0,0,0.18)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
 
-    // Buttons
+    // Buttons with enhanced legibility & prominent font sizing
     btnPrimaryBlack:
-      'px-6 py-3.5 text-xs sm:text-sm font-bold text-white bg-zinc-950 hover:bg-zinc-800 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 shadow-sm',
+      'px-7 py-3.5 sm:py-4 text-sm sm:text-base font-extrabold text-white bg-zinc-950 hover:bg-zinc-800 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] inline-flex items-center justify-center gap-2.5 whitespace-nowrap shrink-0 shadow-md cursor-pointer',
     btnPrimaryWhite:
-      'px-6 py-3.5 text-xs sm:text-sm font-bold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0 shadow-md',
+      'px-7 py-3.5 sm:py-4 text-sm sm:text-base font-extrabold text-zinc-950 bg-white hover:bg-zinc-200 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] inline-flex items-center justify-center gap-2.5 whitespace-nowrap shrink-0 shadow-lg cursor-pointer',
     btnSecondaryOutline:
-      'px-5 py-3 text-xs sm:text-sm font-bold text-zinc-950 bg-white hover:bg-zinc-950 hover:text-white border border-zinc-300 hover:border-zinc-950 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] inline-flex items-center justify-center gap-2 whitespace-nowrap shrink-0',
+      'px-6 py-3 sm:py-3.5 text-sm sm:text-base font-bold text-zinc-950 bg-white hover:bg-zinc-950 hover:text-white border-2 border-zinc-300 hover:border-zinc-950 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] inline-flex items-center justify-center gap-2.5 whitespace-nowrap shrink-0 cursor-pointer',
   },
 } as const;
 
