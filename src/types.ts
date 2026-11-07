@@ -48,15 +48,44 @@ export interface PricingPlan {
   name: string;
   tagline: string;
   monthlyPriceInr: number;
+  marketMonthlyPriceInr: number;
   setupFeeInr: number;
+  marketSetupFeeInr: number;
   monthlyPriceUsd: number;
+  marketMonthlyPriceUsd: number;
   setupFeeUsd: number;
+  marketSetupFeeUsd: number;
   customSetupSuffix?: string;
   popular?: boolean;
+  deliveryTimeline: string;
   features: string[];
   revisions: string;
   supportLevel: string;
   ctaText: string;
+}
+
+export type ServicePillarId =
+  | 'web-dev'
+  | 'app-game'
+  | 'seo-marketing'
+  | 'creative-business';
+
+export interface ServicePricingItem {
+  id: string;
+  index: string;
+  pillarId: ServicePillarId;
+  pillarName: string;
+  title: string;
+  shortDesc: string;
+  billingCycle: 'one-time' | 'monthly';
+  billingLabel: string;
+  kexoraPriceInr: number;
+  marketPriceInr: number;
+  kexoraPriceUsd: number;
+  marketPriceUsd: number;
+  turnaround: string;
+  deliverables: string[];
+  popular?: boolean;
 }
 
 export interface NewsArticle {

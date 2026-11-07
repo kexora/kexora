@@ -13,7 +13,9 @@ export const KEXORA_MEDIA_VAULT = {
   SHOWCASE_HERO: '/api/media/v_7e39a2d8',
   SEO_DASHBOARD: '/api/media/v_5f12b8c7',
   STUDIO_TEAM: '/api/media/v_4a90e3d1',
-  AEROS_FONT: '/api/media/v_1c67d4e5',
+  LOGOS_FONT: '/api/media/v_1c67d4e5',
+  SYSTEM_FONT: '/api/media/v_4e82b9d1',
+  HEADING_FONT: '/api/media/v_7b93c8f2',
 } as const;
 
 // In-memory cache of raw ArrayBuffers so navigating between pages is instant

@@ -1,95 +1,123 @@
-# Kexora Brand Positioning, Premium Hero Upgrade & Core Craft Focus
+# Kexora Pricing & Plan Complete UI/UX Upgrade & 24-Service Rate Card
 
-This update refines Kexora's messaging across the entire platform by removing all third-party ERP/Odoo references, removing the legacy comparison section, elevating the Home Page Hero with a sharper agency headline and visual hierarchy, and focusing every page and interactive utility purely on Kexora's core work: custom web engineering, mobile apps, games, e-commerce, AI-SEO, creative branding, and business compliance.
+Upgrade the Kexora Pricing & Plan experience with fluid animations, a unified **30% Cheaper Than Industry Standard** value proposition (showing strikethrough market rates alongside Kexora's actual pricing and exact savings), upgraded **Beginner, Creative & Expert** monthly plans, and a searchable, category-tabbed **Complete 24-Service Pricing Catalog** covering every single task Kexora delivers across Web, Apps/Games, SEO/Marketing, and Creative/Compliance.
 
 ## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> All three product and design choices below were confirmed during our interactive review and govern this update:
+> All Phase 1 preferences have been locked in and reflected across this blueprint:
 
-- **Confirmed Decision 1 — Home Page Hero Headline & Positioning**: Feature the headline **"Crafting Fast Websites, Apps & Digital Brands"** in the Home Page Hero section, paired with a clear, high-trust subheadline and quick-scan service highlights covering Custom Websites, Mobile Apps, E-Commerce, Games, Google SEO, and Business Setup.
-- **Confirmed Decision 2 — Removal of Comparison Section & All Odoo References**: Remove the speed comparison section completely from both the **Home Page** and **Services Page**, and replace every mention of "Odoo" across all pages, leadership bios, case studies, pricing plans, FAQs, and contact forms with Kexora's own core services (Custom Web Portals, Mobile Apps, Multi-Vendor E-Commerce, AI-SEO, and Full-Stack Architecture).
-- **Confirmed Decision 3 — Interactive Tool Upgrade**: Rename and re-architect the third interactive tool in **Our Tools** as the **Project Cost & Speed Estimator for Web, App & SEO**, enabling prospective clients to estimate setup costs, monthly retainers, and expected load-time/PageSpeed benchmarks across Web, Mobile App/Game, and E-Commerce builds.
+- **Confirmed Decision 1 — 24-Service Catalog Organization**: Interactive category filter tabs (*All 24 Services*, *Web Design & Dev*, *App & Game Dev*, *Digital Marketing & SEO*, *Creative & Business Setup*) paired with instant live search and currency toggle (`INR ₹` / `USD $`).
+- **Confirmed Decision 2 — "30% Cheaper Than Market" Presentation**: Every plan and individual service card displays the **Industry Standard Market Rate** in strikethrough (`line-through`), Kexora’s **30% Lower Direct Studio Price** in bold tabular numerals, and the exact rupee/dollar amount saved (`Save 30% · ₹X,XXX Saved`).
+- **Confirmed Decision 3 — Combined Structure**: Keep the upgraded 3 core monthly plans (**Beginner Plan**, **Creative Plan**, **Expert Plan**) at the top for full-stack managed partnerships, followed immediately by the **Individual Task & Service-Wise Pricing Catalog (All 24 Services)** and multi-service bundle builder below.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Does**: Presents Kexora (`kexora.org`) as an independent, full-service digital engineering and creative agency rooted in Siwan, Bihar (841226) and serving clients globally—focused 100% on what Kexora builds rather than comparing against third-party ERPs.
-- **Target Audience / Persona**: Founders, local and global business owners, e-commerce brands, and startups looking for a single trusted partner to design, code, rank, and legally register their digital business.
-- **Key Value**: Immediate clarity on Kexora's 4 core service pillars—**(1) Web Design & Custom Development**, **(2) Mobile App & Game Development**, **(3) Digital Marketing & AI-SEO**, and **(4) Creative UI/UX, Logo, Video & Business Registration (GST, Trademark, ISO)**—resulting in a cleaner, faster page flow and higher enquiry conversion.
+- **What It Does**:
+  1. **Upgraded 3 Core Managed Plans (Home & Pricing Page)**: Redesigns the Beginner, Creative, and Expert pricing cards with elevated motion transitions, a live **Industry Market Rate vs. Kexora Direct Rate (30% Off)** comparison strip inside each card, interactive billing/currency switching (`INR ₹` / `USD $`), and 1-click Smart Enquiry triggers.
+  2. **Complete 24-Service Individual Task Rate Card**: Introduces a dedicated, animated catalog covering all 24 services across Kexora's 4 pillars so clients who want a specific task (e.g., *Logo Designing*, *GST Registration*, *Android/iOS App*, *Landing Page*, *Google My Business SEO*, *2D/3D Game Development*) can see transparent standalone pricing that is 30% below standard agency rates.
+  3. **Interactive Multi-Task Quote Cart / Bundle Bar**: Allows visitors browsing the 24 individual services to either enquire about a single service immediately or select multiple tasks to see their combined **Market Cost vs. Kexora 30%-Off Total** and send all selected tasks directly into the Smart Enquiry form on `/contact`.
+- **Target Audience / Persona**: Founders, local business owners, D2C brands, and enterprise teams comparing agency quotes who want transparent pricing for both complete monthly retainers and individual digital/legal tasks.
+- **Key Value**: Eliminates hidden agency pricing and proves Kexora’s cost-efficiency by showing concrete industry benchmark rates right next to Kexora’s 30% lower direct engineering rates.
 
 ---
 
 ## 2. User Experience & Visual Design
 
 - **Key User Flows**:
-  1. **Home Page Hero Experience**: Visitors land on a full-viewport (`min-h-[90vh]`) blurred studio backdrop with the crisp white Kexora wordmark logo in the transparent header, a refined studio location and speed kicker (`Kexora Studio · Web, App, Game & SEO Agency`), the bold display headline **"Crafting Fast Websites, Apps & Digital Brands"**, a clear plain-English summary of Kexora's craft, key studio trust metrics (`0.3s Load Speed · 99+ Google PageSpeed · 24/7 Direct Support`), and two high-contrast CTAs (`Start Your Project` → `/contact` and `Explore Our Services` → `/services`).
-  2. **Streamlined Home & Services Page Rhythm**: Without the legacy comparison table interrupting the page, visitors flow directly from the **Hero** → **4-Pillar Services Bento** → **Featured Case Studies & Client Results** → **Transparent Pricing Plans** → **Interactive Client Tools** → **About & News** → **Testimonials & FAQs**.
-  3. **Project Cost & Speed Estimator Flow (`/our-tools`)**: Visitors select their target build (`Portfolio / Landing Page`, `Custom Business Website`, `Android / iOS App & Game`, or `Multi-Vendor E-Commerce`), adjust scope with the page/screen slider, toggle optional AI-SEO, Creative Branding, or GST/Trademark/ISO add-ons, view live INR/USD pricing alongside projected `0.3s` load speed and `99/100` Google PageSpeed metrics, and click **Lock In This Estimate** to open `/contact` with their exact configuration pre-filled.
+  1. **Currency & Savings Header Bar**: Users toggle between `INR (₹)` and `USD ($)` at any time; all 3 monthly plans and all 24 individual service cards animate smoothly to the selected currency with tabular numeral precision.
+  2. **Upgraded 3 Monthly Plans**: Users inspect Beginner (`₹999/mo` vs `₹1,450/mo` market), Creative (`₹2,499/mo` vs `₹3,600/mo` market), and Expert (`₹4,999/mo` vs `₹7,200/mo` market), including strikethrough setup fees and calculated 30% savings callouts.
+  3. **24-Service Interactive Task Explorer**:
+     - Users filter across **All 24 Services** or click any of the **4 Service Pillar Tabs** (*Web Design & Development*, *App & Game Development*, *Digital Marketing & SEO*, *Creative & Business Services*), or type in the instant search bar (e.g., `"Logo"`, `"GST"`, `"Game"`, `"WordPress"`, `"SEO"`).
+     - Each service card shows:
+       - Pillar index & turnaround time (e.g., `01 · Web Design · 5–7 Days Delivery`)
+       - Service title & concise deliverable scope
+       - **Industry Standard Rate** (strikethrough) vs. **Kexora Price (30% Cheaper)** + exact savings amount
+       - Key included deliverables (3 bullet points)
+       - Dual action: **"Book This Service"** (1-click Smart Enquiry pre-fill) or **"+ Add to Bundle"** (multi-service quote calculator).
+  4. **Floating Glass Bundle Summary Bar (When 1+ Tasks Selected)**:
+     - If a user selects multiple individual services (e.g., *Custom Web Design* + *Logo Designing* + *GST Registration*), a sleek frosted-glass bottom summary bar displays total Market Price, Kexora 30%-Off Bundle Price, Total Money Saved, and a **"Claim 30% Off Bundle Quote"** button that auto-fills the entire bundle into `/contact`.
+
 - **Visual Identity & Theme**:
-  - *Aesthetic Direction*: High-Contrast Monochrome Editorial Studio (`#FFFFFF` pure white canvas, `#FAFAFB` subtle structural surfaces, and `#09090B` deep obsidian accents).
-  - *Color Palette & Mood*: Strict 60-30-10 monochrome discipline—60% crisp white background, 30% `#F8F8FA`/`#FAFAFB` muted sections and `#E4E4E7` hairline dividers, and 10% `#09090B` primary interactive actions.
-  - *Typography & Hierarchy*: `Outfit` (600–800 weight, tight tracking, `text-wrap: balance`) for display headlines and section titles; `Plus Jakarta Sans` (400–600 weight) for readable body prose; tabular monospace numerals (`font-mono tabular-nums`) for pricing, speed metrics (`0.3s`), and PageSpeed scores (`99/100`).
-  - *Component Styling & Layout*: Open editorial layouts on About Us and Contact Us paired with crisp hairline-bordered cards on Services, Portfolio, and Pricing. Zero static pill clutter on metadata.
-- **Interactive Feedback & Motion**:
-  - Smooth `500ms cubic-bezier(0.16, 1, 0.3, 1)` header transition from transparent over the dark blurred Hero to a frosted white sticky bar on scroll.
-  - Micro-interaction hover states (`translate-x-0.5 -translate-y-0.5`) on directional action buttons.
+  - *Aesthetic Direction*: High-Craft Monochrome Editorial (`#FFFFFF` pure white canvas, `#FAFAFA` subtle zinc surface, `#09090B` deep obsidian featured surfaces, and frosted glass `backdrop-blur-2xl` floating bars).
+  - *Typography & Hierarchy*: `Outfit` geometric display headings (`text-wrap: balance`), `Plus Jakarta Sans` body prose, and `JetBrains Mono` (`tabular-nums`) for all prices, strikethrough market figures, and percentage savings.
+  - *Interactive Motion*: Smooth card entrance stagger, spring-like tab indicator transitions (`cubic-bezier(0.16, 1, 0.3, 1)`), subtle hover elevation (`-translate-y-1`), and instant filter transitions under `180ms`.
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Decision 1 — Pure Craft Positioning Over Competitor/ERP Comparisons**:
-  - *Chosen Approach*: Remove the comparison section and all references to Odoo across every page, leadership bio, case study, and form option, replacing them with Kexora's direct capabilities (Custom Web Portals, Mobile Apps & Games, Multi-Vendor E-Commerce, and AI-SEO).
-  - *Why*: Defining a brand by what it replaces dilutes its own authority. Highlighting Kexora's actual services makes the agency immediately understandable to every business owner.
-  - *Alternatives Considered*: Keeping a generic "Custom Code vs Old Templates" table was passed over per user preference to keep the Home and Services pages cleaner and more focused.
-- **Decision 2 — Upgrading the Calculator into a Web, App & SEO Cost + Speed Estimator**:
-  - *Chosen Approach*: Replace the "Odoo Migration" calculator option with **"Android / iOS Mobile App & Game"** and display estimated load-time (`0.3s LCP`) and Google PageSpeed (`99+`) benchmarks directly inside the estimate summary panel.
-  - *Why*: Aligns the interactive calculator with Kexora's real 4-pillar service catalog while reinforcing Kexora's speed and SEO advantage.
+- **Decision 1 — Transparent Industry Benchmark vs. Kexora 30% Off Math**:
+  - *Chosen Approach*: Every single plan and all 24 individual services store both the realistic industry standard rate and Kexora's ~30% lower rate in `INR` and `USD`, dynamically computing the exact savings (`marketPrice - kexoraPrice`) so the math is 100% authentic and verifiable.
+  - *Why*: Users immediately trust pricing when the strikethrough benchmark and savings math are concrete rather than vague marketing claims.
+- **Decision 2 — Multi-Service Bundle Selection + Single-Click Smart Enquiry**:
+  - *Chosen Approach*: Each of the 24 service cards supports both direct 1-click enquiry (`Book Now -> /contact`) and optional multi-task selection (`+ Compare / Bundle`) that feeds into the existing Smart Enquiry system.
+  - *Why*: Clients often need 2–3 tasks together (e.g., Website + Logo + GST Registration); letting them bundle tasks on the Pricing page and auto-fill `/contact` minimizes typing to zero.
 
 ---
 
 ## 4. Technical Architecture & Data Strategy *(Technical Reference)*
 
-- **Architecture & Component Diagram**:
+### Architecture & Component Diagram
 
 ```
-┌───────────────────────────────────────────────────────────────────────────┐
-│                        Kexora Client Application                          │
-│         Clean URL History Router (/, /services, /pricing, /our-tools,     │
-│                        /about-us, /news, /contact)                        │
-└─────────────────────────────────────┬─────────────────────────────────────┘
-                                      │
-        ┌─────────────────────────────┼─────────────────────────────┐
-        ▼                             ▼                             ▼
-┌───────────────────┐       ┌───────────────────┐       ┌───────────────────┐
-│  Brand & Content  │       │ Public Page Views │       │ Interactive Tools │
-│    Data Layer     │──────▶│                   │◀──────│  & Lead Capture   │
-│                   │       │ • HomePage        │       │                   │
-│ • 4 Core Pillars  │       │   (Premium Hero,  │       │ • WhatsApp Reader │
-│ • 6 Service Cards │       │   ServicesBento,  │       │ • Live SEO Audit  │
-│   (Web, App/Game, │       │   Portfolio,      │       │ • Project Cost &  │
-│   SEO, Branding,  │       │   Pricing, Tools, │       │   Speed Estimator │
-│   Compliance,     │       │   About/News,     │       │ • Schema Builder  │
-│   E-Commerce)     │       │   Testimonials)   │       │ • ContactForm     │
-│ • Case Studies    │       │ • ServicesPage    │       │   (6 Core Pillars │
-│ • Leadership Bios │       │ • PricingPage     │       │   + 4 Plan Tiers) │
-│   (Rajan & Aditya)│       │ • OurToolsPage    │       │                   │
-│ • News & FAQs     │       │ • AboutUsPage     │       └─────────┬─────────┘
-└───────────────────┘       │ • NewsPage        │                 │
-                            │ • ContactPage     │                 ▼
-                            └─────────┬─────────┘       ┌───────────────────┐
-                                      │                 │  Express Backend  │
-                                      └────────────────▶│  • /api/contact   │
-                                                        │  • /api/seo-audit │
-                                                        │  • /api/media/:id │
-                                                        └───────────────────┘
+┌────────────────────────────────────────────────────────────────────────────┐
+│                     Centralized Pricing & Service Store                    │
+│  • 3 Managed Retainer Plans (with Market Strikethrough & 30% Savings)      │
+│  • 24 Individual Service Pricing Items across 4 Company Pillars            │
+│    (Web Design & Dev · App & Game Dev · SEO & Marketing · Creative/Legal)  │
+└───────────────────┬────────────────────────────────────┬───────────────────┘
+                    │                                    │
+                    ▼                                    ▼
+┌───────────────────────────────────────┐  ┌─────────────────────────────────┐
+│     Upgraded PricingSection (3 Tiers) │  │   PricingPage Full Experience   │
+│  • Currency Switch (INR ₹ / USD $)    │  │  • 30% Market Savings Banner    │
+│  • Market Rate Strikethrough Strip    │  │  • 4-Pillar Interactive Tabs    │
+│  • Animated Card Hover & Highlights   │  │  • Live Search & Task Filter    │
+│  • Direct Smart Enquiry Pre-Fill      │  │  • 24 Service Pricing Cards     │
+└───────────────────┬───────────────────┘  │  • Multi-Task Bundle Bar        │
+                    │                      └─────────────┬───────────────────┘
+                    └──────────────────┬─────────────────┘
+                                       ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                 Smart Enquiry Auto-Fill System (/contact)                  │
+│  • Pre-selects Service Pillar, Pricing Tier / Selected Task Bundle,        │
+│    and populates formatted project brief with 30%-Off pricing details      │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **Data Model & State**:
-  - **Service Catalog & Case Studies**: All 6 primary service items, 3 featured case studies (`Enterprise Custom Web Portal & SERP Sitelinks`, `Digi Sagun & Custom Mobile App Ecosystem`, `Next-Gen Multi-Vendor E-Commerce & Local SEO`), leadership biographies for Rajan Singh and Aditya Singh, testimonials, and FAQs in the central data store are updated to reflect pure Kexora services.
-  - **Estimator Calculation Model**: `projectType` supports `'portfolio' | 'business-custom' | 'app-game' | 'ecommerce'`, computing one-time setup, monthly retainer, delivery weeks, and target speed metrics (`0.3s Instant Load · 99+ Google PageSpeed`).
-- **Interactive Component & State Mapping**:
-  - **Hero Actions**: Clicking `Start Your Project` navigates to `/contact`; clicking `Explore Our Services` navigates to `/services`; clicking any service highlight pill scrolls or navigates to the corresponding service showcase.
-  - **Project Cost & Speed Estimator**: Selecting any of the 4 project types (`Portfolio / Landing Page`, `Custom Business Website`, `Mobile App & Game Dev`, `Multi-Vendor E-Commerce`), dragging the page/screen count slider (`1–25`), or toggling add-ons (`AI-SEO`, `Branding & Video`, `GST/Trademark/ISO`) recalculates INR/USD totals and pre-fills the `/contact` form when the user clicks `Lock In This Estimate With Kexora`.
+### Complete 24-Service Pricing Matrix (4 Pillars × 6 Services Each)
+
+1. **Pillar 1 — Web Design & Development (6 Services)**:
+   - *Ecommerce & Custom Web Design* (Kexora: `₹14,999` vs Market: `₹21,500`)
+   - *Responsive & WordPress Sites* (Kexora: `₹7,999` vs Market: `₹11,500`)
+   - *PHP & CMS Web Development* (Kexora: `₹11,999` vs Market: `₹17,200`)
+   - *Web Portal & API Integration* (Kexora: `₹18,999` vs Market: `₹27,500`)
+   - *Landing Page & News Website Designing* (Kexora: `₹5,999` vs Market: `₹8,600`)
+   - *Multi-Vendor Ecommerce Solutions* (Kexora: `₹34,999` vs Market: `₹50,000`)
+
+2. **Pillar 2 — App & Game Development (6 Services)**:
+   - *Android & iOS Mobile App Development* (Kexora: `₹29,999` vs Market: `₹43,000`)
+   - *Cross-Platform Apps (Flutter & React Native)* (Kexora: `₹24,999` vs Market: `₹36,000`)
+   - *2D & 3D Mobile Game Development* (Kexora: `₹32,999` vs Market: `₹47,500`)
+   - *HTML5, WebGL & Unity Game Development* (Kexora: `₹19,999` vs Market: `₹28,600`)
+   - *Progressive Web Apps (PWA & Custom Utilities)* (Kexora: `₹12,999` vs Market: `₹18,600`)
+   - *App Store & Play Store Publishing & ASO* (Kexora: `₹3,499` vs Market: `₹5,000`)
+
+3. **Pillar 3 — Digital Marketing & SEO (6 Services)**:
+   - *SEO Optimization (Complete On-Page & Technical)* (Kexora: `₹4,999/mo` vs Market: `₹7,200/mo`)
+   - *AI-SEO Optimization & Schema.org Sitelinks* (Kexora: `₹6,499/mo` vs Market: `₹9,300/mo`)
+   - *Google My Business (GMB) & Local SEO* (Kexora: `₹2,999` vs Market: `₹4,300`)
+   - *Instagram & Facebook Performance Marketing* (Kexora: `₹5,499/mo` vs Market: `₹7,900/mo`)
+   - *Social Media Optimization (SMO)* (Kexora: `₹3,999/mo` vs Market: `₹5,800/mo`)
+   - *SEO Content Writing & Website Copywriting* (Kexora: `₹1,999` vs Market: `₹2,900`)
+
+4. **Pillar 4 — Creative & Business Services (6 Services)**:
+   - *Custom Logo Designing & Brand Mark* (Kexora: `₹1,999` vs Market: `₹2,900`)
+   - *PDF, Pitch Deck & Corporate Brochure Designing* (Kexora: `₹2,499` vs Market: `₹3,600`)
+   - *Animated Explainer & Promotional Videos* (Kexora: `₹6,999` vs Market: `₹10,000`)
+   - *UI/UX Design & Figma Prototyping* (Kexora: `₹5,999` vs Market: `₹8,600`)
+   - *GST & Brand Trademark Registration* (Kexora: `₹2,499` vs Market: `₹3,600`)
+   - *ISO Certification & Company Registration* (Kexora: `₹4,999` vs Market: `₹7,200`)

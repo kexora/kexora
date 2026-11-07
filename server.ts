@@ -23,7 +23,9 @@ const PROTECTED_MEDIA_VAULT: Record<string, { filePath: string; mimeType: string
   v_7e39a2d8: { filePath: 'src/assets/images/hero_kexora_showcase_1793511540276.jpg', mimeType: 'image/jpeg' },
   v_5f12b8c7: { filePath: 'src/assets/images/seo_audit_dashboard_1793511540353.jpg', mimeType: 'image/jpeg' },
   v_4a90e3d1: { filePath: 'src/assets/images/agency_workspace_team_1793511539943.jpg', mimeType: 'image/jpeg' },
-  v_1c67d4e5: { filePath: 'src/assets/fonts/Aeros.ttf', mimeType: 'font/ttf' },
+  v_1c67d4e5: { filePath: 'src/assets/fonts/logos.ttf', mimeType: 'font/ttf' },
+  v_4e82b9d1: { filePath: 'src/assets/fonts/system.otf', mimeType: 'font/otf' },
+  v_7b93c8f2: { filePath: 'src/assets/fonts/heading.otf', mimeType: 'font/otf' },
 };
 
 const sendProtectedAssetNotice = (res: express.Response) => {
@@ -95,11 +97,59 @@ app.get('/api/media/:vaultId', (req, res) => {
     return res.status(404).end();
   }
 
-  res.setHeader('Content-Type', entry.mimeType);
+  let contentType = entry.mimeType;
+  const isFontAsset = entry.filePath.startsWith('src/assets/fonts/');
+
+  if (isFontAsset) {
+    try {
+      const fd = fs.openSync(absolutePath, 'r');
+      const headerBuf = Buffer.alloc(4);
+      fs.readSync(fd, headerBuf, 0, 4, 0);
+      fs.closeSync(fd);
+      const magic = headerBuf.toString('ascii');
+      if (magic === 'OTTO') {
+        contentType = 'font/otf';
+      } else if (magic === 'wOF2') {
+        contentType = 'font/woff2';
+      } else if (magic === 'wOFF') {
+        contentType = 'font/woff';
+      } else {
+        contentType = 'font/ttf';
+      }
+    } catch {
+      // Fallback to configured mimeType
+    }
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  } else {
+    res.setHeader('Cache-Control', 'private, max-age=3600, no-transform');
+  }
+
+  res.setHeader('Content-Type', contentType);
   res.setHeader('Content-Disposition', 'inline');
   res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Cache-Control', 'private, max-age=3600, no-transform');
   return fs.createReadStream(absolutePath).pipe(res);
+});
+
+// Live Font Metadata Endpoint: Detects whenever system.otf, heading.otf, or logos.ttf is replaced/edited on disk
+app.get('/api/fonts/meta', (_req, res) => {
+  const getFontVersion = (relPath: string) => {
+    try {
+      const fullPath = path.resolve(process.cwd(), relPath);
+      const stat = fs.statSync(fullPath);
+      return `${Math.floor(stat.mtimeMs)}_${stat.size}`;
+    } catch {
+      return '0';
+    }
+  };
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  return res.json({
+    systemVersion: getFontVersion('src/assets/fonts/system.otf'),
+    headingVersion: getFontVersion('src/assets/fonts/heading.otf'),
+    logosVersion: getFontVersion('src/assets/fonts/logos.ttf'),
+  });
 });
 
 // Initialize Gemini SDK if key is provided

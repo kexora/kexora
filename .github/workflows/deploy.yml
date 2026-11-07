@@ -1,0 +1,60 @@
+name: Deploy Kexora Website to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+# Grant GITHUB_TOKEN required permissions to deploy to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevent concurrent deployments to avoid race conditions
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository source
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js runtime (v20)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci || npm install
+
+      - name: 🌐 Configure GitHub Pages & Base URL
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: 🏗️ Build production bundle with Vite
+        run: npm run build -- --base="${{ steps.pages.outputs.base_path }}"
+
+      - name: 🔄 Setup SPA 404 router fallback
+        run: |
+          if [ -f dist/index.html ]; then
+            cp dist/index.html dist/404.html
+          fi
+
+      - name: 📤 Upload Pages build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

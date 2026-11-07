@@ -1,16 +1,108 @@
 @import "tailwindcss";
 
+/* Kexora Global Website Body/UI Font — src/assets/fonts/system.otf */
 @font-face {
-  font-family: 'Aeros';
-  src: url('/api/media/v_1c67d4e5') format('truetype');
-  font-weight: normal;
+  font-family: 'KexoraSystem';
+  src: url('/api/media/v_4e82b9d1');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/api/media/v_4e82b9d1');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Kexora Heading Font — src/assets/fonts/heading.otf */
+@font-face {
+  font-family: 'KexoraHeading';
+  src: url('/api/media/v_7b93c8f2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  src: url('/api/media/v_7b93c8f2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Logo Display Font — src/assets/fonts/logos.ttf */
+@font-face {
+  font-family: 'KexoraLogos';
+  src: url('/api/media/v_1c67d4e5');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: 'KexoraSystem', system-ui, -apple-system, sans-serif;
+  --font-mono: 'KexoraSystem', monospace;
+}
+
 @layer base {
+  html,
+  body,
+  *,
+  *::before,
+  *::after,
+  button,
+  input,
+  textarea,
+  select {
+    font-family: 'KexoraSystem', system-ui, -apple-system, sans-serif !important;
+  }
+
+  /* All Headings use src/assets/fonts/heading.otf */
+  html body h1,
+  html body h1 *,
+  html body h2,
+  html body h2 *,
+  html body h3,
+  html body h3 *,
+  html body h4,
+  html body h4 *,
+  html body h5,
+  html body h5 *,
+  html body h6,
+  html body h6 *,
+  html body [class*="font-[Outfit]"],
+  html body [class*="font-[Outfit]"] * {
+    font-family: 'KexoraHeading', 'KexoraSystem', sans-serif !important;
+  }
+
+  /* Currency & Numbers Bulletproof Typography Override:
+     Never allow decorative cursive heading font to corrupt currency symbols (₹, $) or price numbers */
+  html body .currency-symbol,
+  html body .currency-symbol *,
+  html body .currency-amount,
+  html body .currency-amount *,
+  html body .price-num,
+  html body .price-num *,
+  html body .price-font,
+  html body .price-font *,
+  html body [data-price-num="true"],
+  html body [data-price-num="true"] * {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    font-variant-numeric: tabular-nums lining-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Dedicated override for the Kexora brand wordmark using src/assets/fonts/logos.ttf */
+  html body .kexora-logo-font,
+  html body .kexora-logo-font * {
+    font-family: 'KexoraLogos', sans-serif !important;
+  }
+
   html {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     scroll-behavior: smooth;
     background-color: #ffffff;
     color: #09090b;

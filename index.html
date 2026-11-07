@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/api/media/v_8f92a1c4" />
+
+    <!-- GitHub Pages Single Page Apps Routing Support -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
+
     <title>Kexora — Web Design & Development Agency</title>
     <meta name="description" content="Kexora (kexora.org) is a full-service Custom Web Design, Mobile App Development, Game Development, Digital Marketing & AI-SEO, and Business Registration (GST, Trademark, ISO) agency." />
     
@@ -18,10 +33,9 @@
     <meta name="twitter:title" content="Kexora — Web Design & Development Agency" />
     <meta name="twitter:description" content="Kexora (kexora.org) is a full-service Custom Web Design, Mobile App Development, Game Development, Digital Marketing & AI-SEO, and Business Registration (GST, Trademark, ISO) agency." />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Preload Kexora Custom System & Heading Fonts -->
+    <link rel="preload" href="/api/media/v_4e82b9d1" as="font" type="font/otf" crossorigin />
+    <link rel="preload" href="/api/media/v_7b93c8f2" as="font" type="font/otf" crossorigin />
 
     <!-- Schema.org Structured Data (JSON-LD) -->
     <script type="application/ld+json">

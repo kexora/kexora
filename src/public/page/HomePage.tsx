@@ -43,8 +43,8 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* Section 04: Official Kexora Pricing Plans */}
       <PricingSection
-        openContactModalWithService={(serviceName) =>
-          openContactModal(serviceName)
+        openContactModalWithService={(serviceName, details) =>
+          openContactModal(serviceName, details)
         }
         onViewAllPage={() => onNavigatePage('pricing')}
       />
@@ -55,6 +55,13 @@ export const HomePage: React.FC<HomePageProps> = ({
         openContactModalWithDetails={(details) =>
           openContactModal('Custom Project Estimate', details)
         }
+        onNavigateTool={(slug) => {
+          if (openToolsWithTab) {
+            openToolsWithTab(slug as any);
+          } else {
+            onNavigatePage('tools');
+          }
+        }}
       />
 
       {/* Section 06 & Section 07: About Kexora & Latest News */}
