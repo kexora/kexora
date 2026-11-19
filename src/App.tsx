@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { ActiveTab, ToolTab, CurrencyCode } from './types';
-import { Header } from './public/component/Header';
-import { Footer } from './public/component/Footer';
-import { ContactModal } from './public/component/ContactModal';
-import { ErrorStatePage } from './public/component/ErrorStatePage';
-import { HomePage } from './public/page/HomePage';
-import { ServicesPage } from './public/page/ServicesPage';
-import { PricingPage } from './public/page/PricingPage';
-import { OurToolsPage } from './public/page/OurToolsPage';
-import { ToolDetailPage } from './public/page/ToolDetailPage';
-import { AboutUsPage } from './public/page/AboutUsPage';
-import { NewsPage } from './public/page/NewsPage';
-import { ContactPage } from './public/page/ContactPage';
+import {
+  Header,
+  Footer,
+  ContactModal,
+  ErrorStatePage,
+} from './public/universal';
+import { HomePage } from './public/home';
+import { ServicesPage } from './public/services';
+import { PricingPage } from './public/pricing';
+import { OurToolsPage, ToolDetailPage } from './public/tools';
+import { AboutUsPage } from './public/about';
+import { NewsPage } from './public/news';
+import { ContactPage } from './public/contact';
 import {
   CANONICAL_ORIGIN,
   getRouteSeo,

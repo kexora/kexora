@@ -16,14 +16,12 @@ app.use(express.json());
 
 // Private Server-Side Media Vault — hides actual file names and folder paths from users
 const PROTECTED_MEDIA_VAULT: Record<string, { filePath: string; mimeType: string }> = {
-  v_8f92a1c4: { filePath: 'src/assets/svg/soniclet-txt.svg', mimeType: 'image/svg+xml' },
   v_3d74e9b2: { filePath: 'src/assets/images/kexora_hero_studio_bg_1793932941167.jpg', mimeType: 'image/jpeg' },
   v_6c18f4a9: { filePath: 'src/assets/images/kx.webp', mimeType: 'image/webp' },
   v_9a41d7e3: { filePath: 'src/assets/images/aditya.webp', mimeType: 'image/webp' },
   v_2b85c6f1: { filePath: 'src/assets/images/odoo_migration_tech_1793511539984.jpg', mimeType: 'image/jpeg' },
   v_7e39a2d8: { filePath: 'src/assets/images/hero_kexora_showcase_1793511540276.jpg', mimeType: 'image/jpeg' },
   v_5f12b8c7: { filePath: 'src/assets/images/seo_audit_dashboard_1793511540353.jpg', mimeType: 'image/jpeg' },
-  v_4a90e3d1: { filePath: 'src/assets/images/agency_workspace_team_1793511539943.jpg', mimeType: 'image/jpeg' },
   v_1c67d4e5: { filePath: 'src/assets/fonts/logos.ttf', mimeType: 'font/ttf' },
   v_4e82b9d1: { filePath: 'src/assets/fonts/system.otf', mimeType: 'font/otf' },
   v_7b93c8f2: { filePath: 'src/assets/fonts/heading.otf', mimeType: 'font/otf' },
