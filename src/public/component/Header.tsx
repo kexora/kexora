@@ -1,7 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ActiveTab, CurrencyCode } from '../../types';
 import { KEXORA_SERVICE_PILLARS } from '../../data/agencyData';
-import { Menu, X, ChevronDown, ArrowUpRight, ArrowRight } from 'lucide-react';
+import {
+  Menu,
+  X,
+  ChevronDown,
+  ArrowUpRight,
+  ArrowRight,
+  Search,
+  Layers,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
@@ -10,6 +18,7 @@ interface HeaderProps {
   openContactModal: (serviceName?: string) => void;
   currency?: CurrencyCode;
   onCurrencyChange?: (currency: CurrencyCode) => void;
+  isLightTopPage?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -18,17 +27,20 @@ export const Header: React.FC<HeaderProps> = ({
   openContactModal,
   currency = 'INR',
   onCurrencyChange,
+  isLightTopPage = false,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [servicesDrawerOpen, setServicesDrawerOpen] = useState(false);
+  const [selectedPillarIdx, setSelectedPillarIdx] = useState(0);
+  const [serviceSearch, setServiceSearch] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
-  const closeDropdownTimeout = useRef<number | null>(null);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     let ticking = false;
 
     const updateScrollState = () => {
-      const scrolled = window.scrollY > 16;
+      const scrolled = window.scrollY > 24;
       setIsScrolled((prev) => (prev !== scrolled ? scrolled : prev));
       ticking = false;
     };
@@ -42,39 +54,38 @@ export const Header: React.FC<HeaderProps> = ({
 
     updateScrollState();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (closeDropdownTimeout.current) {
-        window.clearTimeout(closeDropdownTimeout.current);
-      }
-    };
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const openServicesMenu = () => {
-    if (closeDropdownTimeout.current) {
-      window.clearTimeout(closeDropdownTimeout.current);
-      closeDropdownTimeout.current = null;
+  // Close Services Explorer with Escape key & lock focus smoothly
+  useEffect(() => {
+    if (!servicesDrawerOpen) {
+      setServiceSearch('');
+      return;
     }
-    setServicesDropdownOpen(true);
-  };
-
-  const scheduleCloseServicesMenu = () => {
-    if (closeDropdownTimeout.current) {
-      window.clearTimeout(closeDropdownTimeout.current);
-    }
-    closeDropdownTimeout.current = window.setTimeout(() => {
-      setServicesDropdownOpen(false);
-    }, 110);
-  };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setServicesDrawerOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    const focusTimer = window.setTimeout(() => {
+      searchInputRef.current?.focus();
+    }, 120);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      window.clearTimeout(focusTimer);
+    };
+  }, [servicesDrawerOpen]);
 
   const navItems: {
     id: ActiveTab;
     label: string;
     path: string;
-    hasDropdown?: boolean;
+    hasExplorer?: boolean;
   }[] = [
     { id: 'home', label: 'Home', path: '/' },
-    { id: 'services', label: 'Services', path: '/services', hasDropdown: true },
+    { id: 'services', label: 'Services', path: '/services', hasExplorer: true },
     { id: 'pricing', label: 'Pricing Plan', path: '/pricing' },
     { id: 'tools', label: 'Our Tools', path: '/our-tools' },
     { id: 'about', label: 'About Us', path: '/about-us' },
@@ -82,258 +93,498 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   const handleNavClick = (tab: ActiveTab) => {
-    if (closeDropdownTimeout.current) {
-      window.clearTimeout(closeDropdownTimeout.current);
-    }
     setActiveTab(tab);
     setMobileMenuOpen(false);
-    setServicesDropdownOpen(false);
+    setServicesDrawerOpen(false);
   };
 
   const handleSubServiceEnquire = (serviceName: string) => {
-    if (closeDropdownTimeout.current) {
-      window.clearTimeout(closeDropdownTimeout.current);
-    }
     setMobileMenuOpen(false);
-    setServicesDropdownOpen(false);
+    setServicesDrawerOpen(false);
     openContactModal(serviceName);
   };
 
-  const useLightGlass = isScrolled || servicesDropdownOpen || mobileMenuOpen;
+  // Adaptive crisp surface: light porcelain frosted glass when scrolled, on light-top pages (e.g. 404/403/500), or when mobile menu is open
+  const useLightSurface = isScrolled || isLightTopPage || mobileMenuOpen;
 
-  // Hardware-accelerated glassmorphism transition curve
-  const syncTransition =
-    'transition-[background-color,border-color,color,transform,height,box-shadow,backdrop-filter,filter,opacity] duration-450 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-[transform,background-color,backdrop-filter]';
+  const isPricingView =
+    activeTab === 'pricing' ||
+    (typeof window !== 'undefined' &&
+      window.location.pathname.includes('/pricing'));
+
+  const normalizedQuery = serviceSearch.trim().toLowerCase();
+  const displayedServices = normalizedQuery
+    ? KEXORA_SERVICE_PILLARS.flatMap((pillar) =>
+        pillar.items
+          .filter(
+            (item) =>
+              item.toLowerCase().includes(normalizedQuery) ||
+              pillar.category.toLowerCase().includes(normalizedQuery)
+          )
+          .map((item) => ({ item, category: pillar.category }))
+      )
+    : (KEXORA_SERVICE_PILLARS[selectedPillarIdx]?.items || []).map((item) => ({
+        item,
+        category: KEXORA_SERVICE_PILLARS[selectedPillarIdx].category,
+      }));
 
   return (
-    <header
-      onMouseLeave={scheduleCloseServicesMenu}
-      className={`fixed top-0 left-0 right-0 z-50 select-none ${syncTransition} ${
-        useLightGlass
-          ? 'translate-y-0 bg-white/72 backdrop-blur-2xl backdrop-saturate-180 border-b border-zinc-200/75 text-zinc-950 shadow-[0_10px_35px_-10px_rgba(0,0,0,0.08),inset_0_1px_0_0_rgba(255,255,255,0.65)]'
-          : 'translate-y-0 bg-black/22 backdrop-blur-xl backdrop-saturate-150 border-b border-white/[0.1] text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]'
-      }`}
-    >
-      <div
-        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-8 ${syncTransition} ${
-          useLightGlass ? 'h-16' : 'h-[74px]'
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,color,box-shadow] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          useLightSurface
+            ? 'bg-white/94 backdrop-blur-2xl backdrop-saturate-180 border-b border-zinc-200/90 text-zinc-950 shadow-[0_8px_28px_-12px_rgba(9,9,11,0.12)]'
+            : 'bg-zinc-950/72 backdrop-blur-xl backdrop-saturate-150 border-b border-white/12 text-white shadow-[0_4px_24px_-8px_rgba(0,0,0,0.45)]'
         }`}
       >
-        {/* Zone 1: Official Kexora Brand Wordmark rendered in src/assets/fonts/logos.ttf */}
-        <a
-          href="/"
-          aria-label="Kexora Home"
-          onClick={(e) => {
-            e.preventDefault();
-            handleNavClick('home');
-          }}
-          className={`kexora-logo-font inline-flex items-center shrink-0 whitespace-nowrap origin-left text-xl sm:text-2xl tracking-wider leading-none select-none ${syncTransition} ${
-            useLightGlass
-              ? 'text-zinc-950 scale-95 hover:opacity-75'
-              : 'text-white scale-100 hover:opacity-85'
-          }`}
-        >
-          Kexora
-        </a>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-8">
+          {/* Zone 1: Official Kexora Brand Wordmark */}
+          <a
+            href="/"
+            aria-label="Kexora Home"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('home');
+            }}
+            className={`kexora-logo-font inline-flex items-center shrink-0 whitespace-nowrap text-xl sm:text-2xl tracking-wider leading-none select-none transition-opacity duration-150 ${
+              useLightSurface
+                ? 'text-zinc-950 hover:opacity-75'
+                : 'text-white hover:opacity-85'
+            }`}
+          >
+            Kexora
+          </a>
 
-        {/* Zone 2: Clean single-line text navigation links */}
-        <nav
-          aria-label="Primary Navigation"
-          className="hidden md:flex items-center gap-8 text-[15px] font-semibold"
-        >
-          {navItems.map((item) => {
-            const isActive = activeTab === item.id;
+          {/* Zone 2: Clean Single-Line Navigation (Zero Accidental Hover Dropdowns) */}
+          <nav
+            aria-label="Primary Navigation"
+            className="hidden md:flex items-center gap-7 lg:gap-8 text-[15px] font-semibold"
+          >
+            {navItems.map((item) => {
+              const isActive = activeTab === item.id && !isLightTopPage;
 
-            return (
-              <div
-                key={item.id}
-                className="relative py-2"
-                onMouseEnter={() => {
-                  if (item.hasDropdown) {
-                    openServicesMenu();
-                  } else {
-                    scheduleCloseServicesMenu();
-                  }
-                }}
-              >
+              if (item.hasExplorer) {
+                return (
+                  <div
+                    key={item.id}
+                    className="inline-flex items-center gap-1 whitespace-nowrap shrink-0"
+                  >
+                    <a
+                      href={item.path}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.id);
+                      }}
+                      className={`relative py-1.5 whitespace-nowrap shrink-0 transition-colors duration-150 ${
+                        useLightSurface
+                          ? isActive
+                            ? 'text-zinc-950 font-bold'
+                            : 'text-zinc-700 hover:text-zinc-950'
+                          : isActive
+                            ? 'text-white font-bold'
+                            : 'text-zinc-200 hover:text-white'
+                      }`}
+                    >
+                      <span>{item.label}</span>
+                      {isActive && (
+                        <motion.span
+                          layoutId="kexora-nav-underline"
+                          transition={{
+                            type: 'spring',
+                            stiffness: 420,
+                            damping: 34,
+                          }}
+                          className={`absolute left-0 right-0 -bottom-0.5 h-0.5 rounded-full ${
+                            useLightSurface ? 'bg-zinc-950' : 'bg-white'
+                          }`}
+                        />
+                      )}
+                    </a>
+
+                    {/* Click-Only Modern Services Explorer Trigger */}
+                    <button
+                      type="button"
+                      onClick={() => setServicesDrawerOpen((open) => !open)}
+                      aria-label="Quick browse all 24 Kexora services"
+                      aria-expanded={servicesDrawerOpen}
+                      aria-controls="kexora-services-explorer"
+                      className={`p-1 rounded-md transition-colors duration-150 cursor-pointer ${
+                        useLightSurface
+                          ? servicesDrawerOpen
+                            ? 'bg-zinc-950 text-white'
+                            : 'text-zinc-500 hover:text-zinc-950 hover:bg-zinc-100'
+                          : servicesDrawerOpen
+                            ? 'bg-white text-zinc-950'
+                            : 'text-zinc-300 hover:text-white hover:bg-white/15'
+                      }`}
+                    >
+                      <ChevronDown
+                        className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                          servicesDrawerOpen ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                  </div>
+                );
+              }
+
+              return (
                 <a
+                  key={item.id}
                   href={item.path}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavClick(item.id);
                   }}
-                  className={`relative whitespace-nowrap shrink-0 py-1 inline-flex items-center gap-1.5 ${syncTransition} ${
-                    useLightGlass
+                  className={`relative py-1.5 whitespace-nowrap shrink-0 transition-colors duration-150 ${
+                    useLightSurface
                       ? isActive
                         ? 'text-zinc-950 font-bold'
-                        : 'text-zinc-600 hover:text-zinc-950'
+                        : 'text-zinc-700 hover:text-zinc-950'
                       : isActive
                         ? 'text-white font-bold'
                         : 'text-zinc-200 hover:text-white'
                   }`}
                 >
                   <span>{item.label}</span>
-                  {item.hasDropdown && (
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                        servicesDropdownOpen ? 'rotate-180' : ''
-                      }`}
-                    />
-                  )}
                   {isActive && (
                     <motion.span
                       layoutId="kexora-nav-underline"
                       transition={{
                         type: 'spring',
-                        stiffness: 400,
-                        damping: 32,
+                        stiffness: 420,
+                        damping: 34,
                       }}
-                      className={`absolute left-0 right-0 -bottom-0.5 h-0.5 rounded-full ${syncTransition} ${
-                        useLightGlass ? 'bg-zinc-950' : 'bg-white'
+                      className={`absolute left-0 right-0 -bottom-0.5 h-0.5 rounded-full ${
+                        useLightSurface ? 'bg-zinc-950' : 'bg-white'
                       }`}
                     />
                   )}
                 </a>
-              </div>
-            );
-          })}
-        </nav>
+              );
+            })}
+          </nav>
 
-        {/* Zone 3: Actions & Currency Switcher on Pricing Page */}
-        <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
-          {/* USD / INR Currency Switch Button — Displayed specifically on Pricing Page */}
-          {(activeTab === 'pricing' ||
-            (typeof window !== 'undefined' &&
-              window.location.pathname.includes('/pricing'))) &&
-            onCurrencyChange && (
+          {/* Zone 3: Pricing Currency Toggle (Pricing Page Only) & Primary CTA */}
+          <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
+            {isPricingView && onCurrencyChange && (
               <div
                 role="group"
                 aria-label="Select pricing currency"
-                className={`inline-flex items-center p-1 rounded-full border transition-all ${
-                  useLightGlass
-                    ? 'bg-zinc-100/90 border-zinc-300/80 text-zinc-950 shadow-xs'
-                    : 'bg-white/10 border-white/20 text-white backdrop-blur-md'
+                className={`hidden sm:inline-flex items-center p-1 rounded-full border transition-colors ${
+                  useLightSurface
+                    ? 'bg-zinc-100 border-zinc-300 text-zinc-950'
+                    : 'bg-white/12 border-white/25 text-white'
                 }`}
               >
                 <button
                   type="button"
                   onClick={() => onCurrencyChange('INR')}
-                  className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-1 cursor-pointer ${
+                  className={`px-3 py-1 rounded-full text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer whitespace-nowrap ${
                     currency === 'INR'
-                      ? useLightGlass
-                        ? 'bg-zinc-950 text-white shadow-xs'
-                        : 'bg-white text-zinc-950 shadow-xs'
-                      : useLightGlass
-                        ? 'text-zinc-600 hover:text-zinc-950'
-                        : 'text-zinc-300 hover:text-white'
+                      ? useLightSurface
+                        ? 'bg-zinc-950 text-white'
+                        : 'bg-white text-zinc-950'
+                      : useLightSurface
+                        ? 'text-zinc-700 hover:text-zinc-950'
+                        : 'text-zinc-200 hover:text-white'
                   }`}
                 >
-                  <span className="currency-symbol text-xs sm:text-sm font-bold">₹</span>
+                  <span className="currency-symbol font-bold">₹</span>
                   <span>INR</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => onCurrencyChange('USD')}
-                  className={`px-3 sm:px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-1 cursor-pointer ${
+                  className={`px-3 py-1 rounded-full text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer whitespace-nowrap ${
                     currency === 'USD'
-                      ? useLightGlass
-                        ? 'bg-zinc-950 text-white shadow-xs'
-                        : 'bg-white text-zinc-950 shadow-xs'
-                      : useLightGlass
-                        ? 'text-zinc-600 hover:text-zinc-950'
-                        : 'text-zinc-300 hover:text-white'
+                      ? useLightSurface
+                        ? 'bg-zinc-950 text-white'
+                        : 'bg-white text-zinc-950'
+                      : useLightSurface
+                        ? 'text-zinc-700 hover:text-zinc-950'
+                        : 'text-zinc-200 hover:text-white'
                   }`}
                 >
-                  <span className="currency-symbol text-xs sm:text-sm font-bold">$</span>
+                  <span className="currency-symbol font-bold">$</span>
                   <span>USD</span>
                 </button>
               </div>
             )}
 
-          <a
-            href="/contact"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick('contact');
-            }}
-            className={`group px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-[15px] font-extrabold rounded-full whitespace-nowrap shrink-0 inline-flex items-center justify-center gap-2 cursor-pointer ${syncTransition} ${
-              useLightGlass
-                ? 'bg-zinc-950 text-white hover:bg-zinc-800 shadow-sm scale-95'
-                : 'bg-white text-zinc-950 hover:bg-zinc-100 shadow-md scale-100'
-            }`}
-          >
-            <span>Contact Us</span>
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+            <a
+              href="/contact"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('contact');
+              }}
+              className={`group px-5 sm:px-6 py-2.5 text-sm font-extrabold rounded-full whitespace-nowrap shrink-0 inline-flex items-center justify-center gap-2 transition-colors duration-150 cursor-pointer ${
+                useLightSurface
+                  ? 'bg-zinc-950 text-white hover:bg-zinc-800 shadow-xs'
+                  : 'bg-white text-zinc-950 hover:bg-zinc-200 shadow-md'
+              }`}
+            >
+              <span>Contact Us</span>
+              <ArrowUpRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
 
-          <button
-            type="button"
-            aria-label={
-              mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'
-            }
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden p-2 rounded-xl ${syncTransition} ${
-              useLightGlass
-                ? 'text-zinc-800 hover:text-zinc-950 hover:bg-zinc-950/[0.06]'
-                : 'text-white hover:bg-white/15'
-            }`}
-          >
-            {mobileMenuOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
+            <button
+              type="button"
+              aria-label={
+                mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'
+              }
+              onClick={() => {
+                setServicesDrawerOpen(false);
+                setMobileMenuOpen((v) => !v);
+              }}
+              className={`md:hidden p-2.5 rounded-xl transition-colors cursor-pointer ${
+                useLightSurface
+                  ? 'text-zinc-900 hover:bg-zinc-100'
+                  : 'text-white hover:bg-white/15'
+              }`}
+            >
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Desktop Services Frosted Glass Mega-Menu Dropdown */}
-      <AnimatePresence>
-        {servicesDropdownOpen && (
-          <motion.div
-            onMouseEnter={openServicesMenu}
-            onMouseLeave={scheduleCloseServicesMenu}
-            initial={{ opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="hidden md:block border-t border-zinc-200/75 bg-white/82 backdrop-blur-2xl backdrop-saturate-180 text-zinc-950 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.14)]"
-          >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 space-y-6">
-              <div className="grid grid-cols-4 gap-8">
-                {KEXORA_SERVICE_PILLARS.map((pillar) => (
-                  <div key={pillar.category} className="space-y-3">
-                    <div className="text-xs font-extrabold uppercase tracking-wider text-zinc-950 pb-2 border-b border-zinc-200/90 font-[Outfit]">
-                      {pillar.category}
-                    </div>
-                    <ul className="space-y-2 text-xs text-zinc-600">
-                      {pillar.items.map((subItem) => (
-                        <li key={subItem}>
-                          <a
-                            href="/contact"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleSubServiceEnquire(subItem);
-                            }}
-                            className="group flex items-center justify-between gap-2 py-0.5 text-left hover:text-zinc-950 transition-colors"
-                          >
-                            <span className="group-hover:underline underline-offset-4">
-                              {subItem}
-                            </span>
-                            <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150 shrink-0 text-zinc-950" />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+        {/* Clean High-Contrast Mobile Navigation Drawer */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              aria-label="Mobile Navigation"
+              className="md:hidden border-t border-zinc-200 bg-white text-zinc-950 px-4 py-4 space-y-1 shadow-xl"
+            >
+              {navItems.map((item) => (
+                <a
+                  key={item.id}
+                  href={item.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
+                  className={`block py-2.5 px-3.5 text-sm font-semibold rounded-xl transition-colors ${
+                    activeTab === item.id && !isLightTopPage
+                      ? 'bg-zinc-950 text-white font-bold'
+                      : 'text-zinc-800 hover:bg-zinc-100 hover:text-zinc-950'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+              <a
+                href="/contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('contact');
+                }}
+                className={`block py-2.5 px-3.5 text-sm font-semibold rounded-xl transition-colors ${
+                  activeTab === 'contact' && !isLightTopPage
+                    ? 'bg-zinc-950 text-white font-bold'
+                    : 'text-zinc-800 hover:bg-zinc-100 hover:text-zinc-950'
+                }`}
+              >
+                Contact Us
+              </a>
+
+              {isPricingView && onCurrencyChange && (
+                <div className="pt-3 pb-1 px-3 flex items-center justify-between border-t border-zinc-200 mt-2">
+                  <span className="text-xs font-bold text-zinc-700">
+                    Pricing Currency
+                  </span>
+                  <div className="inline-flex items-center p-1 bg-zinc-100 rounded-full border border-zinc-200">
+                    <button
+                      type="button"
+                      onClick={() => onCurrencyChange('INR')}
+                      className={`px-3 py-1 rounded-full text-xs font-bold transition-colors cursor-pointer ${
+                        currency === 'INR'
+                          ? 'bg-zinc-950 text-white'
+                          : 'text-zinc-700 hover:text-zinc-950'
+                      }`}
+                    >
+                      <span className="currency-symbol">₹</span> INR
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onCurrencyChange('USD')}
+                      className={`px-3 py-1 rounded-full text-xs font-bold transition-colors cursor-pointer ${
+                        currency === 'USD'
+                          ? 'bg-zinc-950 text-white'
+                          : 'text-zinc-700 hover:text-zinc-950'
+                      }`}
+                    >
+                      <span className="currency-symbol">$</span> USD
+                    </button>
                   </div>
-                ))}
+                </div>
+              )}
+            </motion.nav>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* Modern Click-Activated Command-Style Services Explorer Overlay */}
+      <AnimatePresence>
+        {servicesDrawerOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.16 }}
+            onClick={() => setServicesDrawerOpen(false)}
+            className="fixed inset-0 z-50 bg-zinc-950/50 backdrop-blur-sm flex items-start justify-center pt-[84px] px-4 pb-6"
+          >
+            <motion.div
+              id="kexora-services-explorer"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Kexora Services Explorer"
+              initial={{ opacity: 0, y: -10, scale: 0.985 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.985 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-4xl rounded-2xl bg-white text-zinc-950 border border-zinc-200 shadow-2xl overflow-hidden"
+            >
+              {/* Command Search Header */}
+              <div className="px-5 py-4 border-b border-zinc-200 flex items-center gap-3 bg-zinc-50/70">
+                <Search className="w-4 h-4 text-zinc-500 shrink-0" aria-hidden="true" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={serviceSearch}
+                  onChange={(e) => setServiceSearch(e.target.value)}
+                  placeholder="Search all 24 Kexora services (e.g. E-Commerce, App, Game, AI-SEO, GST)..."
+                  className="w-full bg-transparent text-sm text-zinc-950 placeholder-zinc-400 focus:outline-none"
+                />
+                {serviceSearch && (
+                  <button
+                    type="button"
+                    onClick={() => setServiceSearch('')}
+                    className="text-xs font-semibold text-zinc-500 hover:text-zinc-950 whitespace-nowrap cursor-pointer"
+                  >
+                    Clear
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setServicesDrawerOpen(false)}
+                  aria-label="Close services explorer"
+                  className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-950 hover:bg-zinc-200/70 transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
 
-              {/* Bottom Mega-Menu Quick Action Bar */}
-              <div className="pt-4 border-t border-zinc-200/80 flex items-center justify-between text-xs">
-                <span className="text-zinc-500">
-                  Click any service above to auto-fill your project enquiry, or view our full engineering breakdown.
-                </span>
+              {/* Split Explorer Body: Pillar Rail + Interactive Service Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-12 min-h-[310px] max-h-[65vh] overflow-y-auto">
+                {/* Left Pillar Tabs */}
+                <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-zinc-200 p-3 bg-zinc-50/50 space-y-1">
+                  <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-zinc-500">
+                    Service Pillars
+                  </div>
+                  {KEXORA_SERVICE_PILLARS.map((pillar, idx) => {
+                    const isSelected = !normalizedQuery && selectedPillarIdx === idx;
+                    return (
+                      <button
+                        key={pillar.category}
+                        type="button"
+                        onClick={() => {
+                          setServiceSearch('');
+                          setSelectedPillarIdx(idx);
+                        }}
+                        className={`w-full text-left px-3.5 py-3 rounded-xl transition-colors flex items-center justify-between gap-2 cursor-pointer ${
+                          isSelected
+                            ? 'bg-zinc-950 text-white font-bold'
+                            : 'text-zinc-700 hover:bg-zinc-200/60 hover:text-zinc-950 font-medium'
+                        }`}
+                      >
+                        <span className="text-xs sm:text-sm truncate">
+                          {pillar.category}
+                        </span>
+                        <span
+                          className={`text-[11px] font-mono tabular-nums shrink-0 ${
+                            isSelected ? 'text-zinc-300' : 'text-zinc-400'
+                          }`}
+                        >
+                          {pillar.items.length}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Right Service Cards Grid */}
+                <div className="md:col-span-8 p-5 space-y-3">
+                  <div className="flex items-center justify-between text-xs text-zinc-500">
+                    <span className="font-semibold text-zinc-950">
+                      {normalizedQuery
+                        ? `Matching services (${displayedServices.length})`
+                        : KEXORA_SERVICE_PILLARS[selectedPillarIdx]?.category}
+                    </span>
+                    <span>Click any service to request a quote</span>
+                  </div>
+
+                  {displayedServices.length === 0 ? (
+                    <div className="py-12 text-center space-y-2">
+                      <Layers className="w-6 h-6 text-zinc-300 mx-auto" />
+                      <p className="text-sm font-semibold text-zinc-800">
+                        No matching service found
+                      </p>
+                      <p className="text-xs text-zinc-500">
+                        Try another keyword or browse the 4 pillars on the left.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {displayedServices.map(({ item, category }) => (
+                        <a
+                          key={`${category}-${item}`}
+                          href="/contact"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleSubServiceEnquire(item);
+                          }}
+                          className="group p-3.5 rounded-xl bg-white border border-zinc-200 hover:border-zinc-950 hover:bg-zinc-50 transition-colors flex items-center justify-between gap-3"
+                        >
+                          <div className="min-w-0">
+                            <div className="text-xs sm:text-[13px] font-bold text-zinc-950 leading-snug">
+                              {item}
+                            </div>
+                            {normalizedQuery && (
+                              <div className="text-[11px] text-zinc-500 mt-0.5 truncate">
+                                {category}
+                              </div>
+                            )}
+                          </div>
+                          <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-zinc-950 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Clean Footer Strip */}
+              <div className="px-5 py-3.5 border-t border-zinc-200 bg-zinc-50 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <a
+                  href="/pricing"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick('pricing');
+                  }}
+                  className="font-semibold text-zinc-700 hover:text-zinc-950 transition-colors"
+                >
+                  Compare 3-Tier INR &amp; USD Pricing →
+                </a>
                 <a
                   href="/services"
                   onClick={(e) => {
@@ -342,96 +593,14 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="font-bold text-zinc-950 hover:opacity-75 inline-flex items-center gap-1.5 transition-opacity"
                 >
-                  <span>Explore Complete Services Page</span>
+                  <span>Open Full Services Page</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Smooth Frosted Glass Mobile Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.nav
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            aria-label="Mobile Navigation"
-            className="md:hidden border-t border-zinc-200/80 bg-white/86 backdrop-blur-2xl backdrop-saturate-180 text-zinc-950 px-4 py-4 space-y-1.5 shadow-2xl"
-          >
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.path}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.id);
-                }}
-                className={`block py-2.5 px-3.5 text-sm font-medium rounded-xl transition-colors duration-150 ${
-                  activeTab === item.id
-                    ? 'bg-zinc-950 text-white font-bold shadow-xs'
-                    : 'text-zinc-700 hover:bg-zinc-950/[0.06] hover:text-zinc-950'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
-            <a
-              href="/contact"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('contact');
-              }}
-              className={`block py-2.5 px-3.5 text-sm font-medium rounded-xl transition-colors duration-150 ${
-                activeTab === 'contact'
-                  ? 'bg-zinc-950 text-white font-bold shadow-xs'
-                  : 'text-zinc-700 hover:bg-zinc-950/[0.06] hover:text-zinc-950'
-              }`}
-            >
-              Contact Us
-            </a>
-
-            {/* Mobile Pricing Currency Selector */}
-            {(activeTab === 'pricing' ||
-              (typeof window !== 'undefined' &&
-                window.location.pathname.includes('/pricing'))) &&
-              onCurrencyChange && (
-                <div className="pt-3 pb-1 px-3 flex items-center justify-between border-t border-zinc-200/80 mt-2">
-                  <span className="text-xs font-bold text-zinc-600">
-                    Pricing Currency:
-                  </span>
-                  <div className="inline-flex items-center p-1 bg-zinc-100 rounded-full border border-zinc-200">
-                    <button
-                      type="button"
-                      onClick={() => onCurrencyChange('INR')}
-                      className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                        currency === 'INR'
-                          ? 'bg-zinc-950 text-white shadow-xs'
-                          : 'text-zinc-600 hover:text-zinc-950'
-                      }`}
-                    >
-                      <span className="currency-symbol">₹</span> INR
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => onCurrencyChange('USD')}
-                      className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                        currency === 'USD'
-                          ? 'bg-zinc-950 text-white shadow-xs'
-                          : 'text-zinc-600 hover:text-zinc-950'
-                      }`}
-                    >
-                      <span className="currency-symbol">$</span> USD
-                    </button>
-                  </div>
-                </div>
-              )}
-          </motion.nav>
-        )}
-      </AnimatePresence>
-    </header>
+    </>
   );
 };

@@ -411,13 +411,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white text-zinc-950 flex flex-col font-[Plus_Jakarta_Sans] selection:bg-zinc-950 selection:text-white">
-      {/* Public Header Component with USD/INR Switch on Pricing Page */}
+      {/* Public Header Component with Adaptive Contrast & USD/INR Switch on Pricing Page */}
       <Header
         activeTab={activeTab}
         setActiveTab={handleNavChange}
         openContactModal={openContactModal}
         currency={currency}
         onCurrencyChange={setCurrency}
+        isLightTopPage={Boolean(routeErrorCode || isOffline)}
       />
 
       {/* Active Public Page View or Error Suite */}
