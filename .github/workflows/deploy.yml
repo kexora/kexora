@@ -25,47 +25,50 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout repository source
+      - name: Checkout repository source
         uses: actions/checkout@v4
 
-      - name: ⚙️ Setup Node.js runtime (v20)
+      - name: Setup Node.js runtime (v22 for Vite 8)
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: 🌐 Configure GitHub Pages & Base URL
+      - name: Configure GitHub Pages & Base URL
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: 🏗️ Build production bundle with Vite
+      - name: Build production bundle & pre-render HTTP-200 routes
         env:
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: |
           if [ -z "$PAGES_BASE_PATH" ]; then
-            npm run build -- --base="/"
+            export BASE_PATH="/"
           else
-            npm run build -- --base="${PAGES_BASE_PATH%/}/"
+            export BASE_PATH="${PAGES_BASE_PATH%/}/"
           fi
+          npm run build
 
-      - name: ✅ Verify static HTTP-200 routes, sitemap & 404 page
+      - name: Verify static HTTP-200 routes, sitemap, nojekyll & 404 page
         run: |
           test -f dist/index.html
           test -f dist/404.html
+          test -f dist/.nojekyll
           test -f dist/robots.txt
           test -f dist/sitemap.xml
           test -f dist/llms.txt
+          test -f dist/CNAME
           test -f dist/services/index.html
           test -f dist/pricing/index.html
           test -f dist/our-tools/index.html
 
-      - name: 📤 Upload Pages build artifact
+      - name: Upload Pages build artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
 
-      - name: 🚀 Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

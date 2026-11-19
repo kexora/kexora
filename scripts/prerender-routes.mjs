@@ -217,6 +217,8 @@ for (const route of ROUTES) {
   generatedCount++;
 }
 
+fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '', 'utf-8');
+
 console.log(
-  `[Kexora SEO Build] Generated ${generatedCount} static HTTP-200 route HTML files in dist/ (11 total canonical routes including /).`
+  `[Kexora SEO Build] Generated ${generatedCount} static HTTP-200 route HTML files + .nojekyll in dist/ (11 total canonical routes including /).`
 );
