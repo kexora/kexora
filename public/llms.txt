@@ -1,0 +1,31 @@
+# Kexora
+
+> Kexora is a full-service custom web design, mobile app development, 2D/3D game development, digital marketing, AI-SEO, creative branding, and business registration (GST, Trademark, ISO) agency headquartered in Siwan, Bihar, India and serving clients globally.
+
+Official Canonical Website: https://kexora.in
+Brand Name: Kexora
+Leadership: Rajan Singh (CEO & Strategy Head), Aditya Singh (CTO & Lead Developer)
+Headquarters: Siwan, Bihar 841226, India
+Contact: contact@kexora.in | support@kexora.in | admin@kexora.in | aditya@kexora.in
+
+## Core Pages
+
+- [Home](https://kexora.in/): Agency overview, 0.3s custom code architecture, portfolio showcase, and live SEO capabilities.
+- [Services](https://kexora.in/services): Full catalog of 24 services across Web Development, Mobile Apps & Games, SEO & Digital Marketing, and Creative Branding & Business Registration.
+- [Pricing Plan](https://kexora.in/pricing): Transparent 3-tier pricing (Basic, Standard, Premium) in INR and USD across all 24 services and monthly studio plans.
+- [Our Tools](https://kexora.in/our-tools): Free privacy-first browser utilities built by Kexora.
+- [About Us](https://kexora.in/about-us): Studio story, leadership team (Rajan Singh and Aditya Singh), and engineering standards.
+- [News](https://kexora.in/news): Engineering insights, SEO updates, and digital growth dispatches.
+- [Contact Us](https://kexora.in/contact): Direct project inquiry form, interactive quotation card, and official studio desks.
+
+## Free In-Browser Tools
+
+- [WhatsApp Message Reader](https://kexora.in/our-tools/whatsapp-reader): 100% client-side WhatsApp .txt export reader with timeline search and participant filters.
+- [AI SEO Auditor](https://kexora.in/our-tools/seo-audit): Live website SEO, Core Web Vitals, and Schema.org analyzer.
+- [Cost & Speed Estimator](https://kexora.in/our-tools/cost-calculator): Interactive web, app, game, and SEO project cost estimator in INR and USD.
+- [Schema.org JSON-LD Builder](https://kexora.in/our-tools/schema-generator): Google-compliant structured data builder for Organization, ProfessionalService, and WebSite schemas.
+
+## Crawl & Discovery
+
+- Sitemap: https://kexora.in/sitemap.xml
+- Robots: https://kexora.in/robots.txt

@@ -1,0 +1,8 @@
+{
+  "name": "Remix Kexora",
+  "description": "Transform your website from legacy Odoo to high-performance custom code. Modern design, blazing speed, and enterprise-grade SEO optimization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
