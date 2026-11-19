@@ -11,3 +11,10 @@ export { AppErrorBoundary } from './AppErrorBoundary';
 export { KEXORA_THEME } from './theme';
 export { BlurKex, type BlurKexProps } from './effect';
 export * from './effect/effectCatalog';
+export {
+  formatDynamicTabTitle,
+  setBaseTabTitle,
+  setContextualTabLayer,
+  clearContextualTabLayer,
+  useContextualTabTitle,
+} from './tabTitle';

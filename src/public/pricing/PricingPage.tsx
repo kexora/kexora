@@ -12,7 +12,7 @@ import {
   getServiceTiers,
   TIER_ORDER,
 } from '../../data/tieredPricingEngine';
-import { PageBanner, BlurKex } from '../universal';
+import { PageBanner, BlurKex, useContextualTabTitle } from '../universal';
 import { PricingSection } from './PricingSection';
 import { TestimonialsFaq } from './TestimonialsFaq';
 import {
@@ -72,6 +72,29 @@ export const PricingPage: React.FC<PricingPageProps> = ({
   >([]);
 
   const symbol = currency === 'INR' ? '₹' : '$';
+
+  const pricingTabContext = (() => {
+    if (selectedBundleItems.length > 0) {
+      return `Bundle (${selectedBundleItems.length} Selected) · ${currency}`;
+    }
+    if (searchQuery.trim()) {
+      return `Pricing: ${searchQuery.trim()}`;
+    }
+    const pillarLabels: Record<PillarFilter, string | null> = {
+      all: null,
+      'web-dev': 'Web Pricing',
+      'app-game': 'App & Game Pricing',
+      'seo-marketing': 'SEO Pricing',
+      'creative-business': 'Creative & GST Pricing',
+    };
+    const pillarName = pillarLabels[selectedPillar];
+    if (pillarName) {
+      return `${pillarName} (${currency})`;
+    }
+    return currency === 'USD' ? 'Pricing (USD)' : null;
+  })();
+
+  useContextualTabTitle(pricingTabContext, 10);
 
   const getActiveTierForCard = (serviceId: string): ServiceTierId => {
     return cardTierOverrides[serviceId] || globalTier;

@@ -17,13 +17,25 @@
   font-display: swap;
 }
 
-/* Kexora Heading Font — src/assets/fonts/heading.otf */
+/* Dedicated Automatic Math Digits Font — src/assets/fonts/system.otf
+   Automatically applies system.otf to every digit (0-9, superscripts/subscripts, fractions) across the entire website */
+@font-face {
+  font-family: 'KexoraMathDigits';
+  src: url('/api/media/v_4e82b9d1');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0030-0039, U+00B2-00B3, U+00B9, U+2070-209F, U+2150-215F;
+}
+
+/* Kexora Heading Font — src/assets/fonts/heading.otf (excludes math digits so digits always use system.otf) */
 @font-face {
   font-family: 'KexoraHeading';
   src: url('/api/media/v_7b93c8f2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-002F, U+003A-00B1, U+00B4-00B8, U+00BA-206F, U+20A0-214F, U+2160-10FFFF;
 }
 
 @font-face {
@@ -32,20 +44,22 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-002F, U+003A-00B1, U+00B4-00B8, U+00BA-206F, U+20A0-214F, U+2160-10FFFF;
 }
 
-/* Logo Display Font — src/assets/fonts/logos.ttf */
+/* Logo Display Font — src/assets/fonts/logos.ttf (excludes math digits so digits always use system.otf) */
 @font-face {
   font-family: 'KexoraLogos';
   src: url('/api/media/v_1c67d4e5');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-002F, U+003A-00B1, U+00B4-00B8, U+00BA-206F, U+20A0-214F, U+2160-10FFFF;
 }
 
 @theme {
-  --font-sans: 'KexoraSystem', system-ui, -apple-system, sans-serif;
-  --font-mono: 'KexoraSystem', monospace;
+  --font-sans: 'KexoraMathDigits', 'KexoraSystem', system-ui, -apple-system, sans-serif;
+  --font-mono: 'KexoraMathDigits', 'KexoraSystem', system-ui, -apple-system, monospace;
 }
 
 @layer base {
@@ -58,7 +72,7 @@
   input,
   textarea,
   select {
-    font-family: 'KexoraSystem', system-ui, -apple-system, sans-serif !important;
+    font-family: 'KexoraMathDigits', 'KexoraSystem', system-ui, -apple-system, sans-serif !important;
   }
 
   /* Buttons Typography: Always crisp, bold & legible */
@@ -66,11 +80,11 @@
   html body button *,
   html body a[role="button"],
   html body a[role="button"] * {
-    font-family: 'KexoraSystem', system-ui, -apple-system, sans-serif !important;
+    font-family: 'KexoraMathDigits', 'KexoraSystem', system-ui, -apple-system, sans-serif !important;
     letter-spacing: -0.01em;
   }
 
-  /* All Headings use src/assets/fonts/heading.otf */
+  /* All Headings use src/assets/fonts/heading.otf while all math digits automatically use src/assets/fonts/system.otf */
   html body h1,
   html body h1 *,
   html body h2,
@@ -85,11 +99,10 @@
   html body h6 *,
   html body [class*="font-[Outfit]"],
   html body [class*="font-[Outfit]"] * {
-    font-family: 'KexoraHeading', 'KexoraSystem', sans-serif !important;
+    font-family: 'KexoraMathDigits', 'KexoraHeading', 'KexoraSystem', system-ui, -apple-system, sans-serif !important;
   }
 
-  /* Currency & Numbers Bulletproof Typography Override:
-     Never allow decorative cursive heading font to corrupt currency symbols (₹, $) or price numbers */
+  /* Currency & Numbers Typography: Prioritize src/assets/fonts/system.otf for digits with clean system fallback for currency symbols */
   html body .currency-symbol,
   html body .currency-symbol *,
   html body .currency-amount,
@@ -100,15 +113,15 @@
   html body .price-font *,
   html body [data-price-num="true"],
   html body [data-price-num="true"] * {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    font-family: 'KexoraMathDigits', 'KexoraSystem', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
     font-variant-numeric: tabular-nums lining-nums;
     letter-spacing: -0.02em;
   }
 
-  /* Dedicated override for the Kexora brand wordmark using src/assets/fonts/logos.ttf */
+  /* Dedicated override for the Kexora brand wordmark using src/assets/fonts/logos.ttf (math digits still use system.otf) */
   html body .kexora-logo-font,
   html body .kexora-logo-font * {
-    font-family: 'KexoraLogos', sans-serif !important;
+    font-family: 'KexoraMathDigits', 'KexoraLogos', 'KexoraSystem', system-ui, sans-serif !important;
   }
 
   html {

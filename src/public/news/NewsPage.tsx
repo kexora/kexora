@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ActiveTab, NewsArticle } from '../../types';
-import { PageBanner, BlurKex } from '../universal';
+import { PageBanner, BlurKex, useContextualTabTitle } from '../universal';
 import { NEWS_ARTICLES } from '../../data/agencyData';
 import { ArrowUpRight, X, Check } from 'lucide-react';
 
@@ -15,6 +15,15 @@ export const NewsPage: React.FC<NewsPageProps> = ({
 }) => {
   const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+
+  useContextualTabTitle(
+    selectedArticle
+      ? selectedArticle.title
+      : categoryFilter !== 'all'
+        ? `${categoryFilter} News`
+        : null,
+    selectedArticle ? 30 : 10
+  );
 
   const filteredArticles =
     categoryFilter === 'all'

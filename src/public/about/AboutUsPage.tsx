@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ActiveTab } from '../../types';
 import { KEXORA_COMPANY_INFO } from '../../data/agencyData';
-import { ProtectedImage, KEXORA_MEDIA_VAULT, BlurKex } from '../universal';
+import {
+  ProtectedImage,
+  KEXORA_MEDIA_VAULT,
+  BlurKex,
+  useContextualTabTitle,
+} from '../universal';
 import {
   ArrowUpRight,
   MapPin,
@@ -42,6 +47,13 @@ export const AboutUsPage: React.FC<AboutUsPageProps> = ({
     { id: 'meet-our-designers', label: 'Meet Our Designers' },
     { id: 'our-journey', label: 'Our Journey' },
   ];
+
+  const activeSectionLabel =
+    activeSection === 'who-we-are'
+      ? null
+      : sidebarLinks.find((item) => item.id === activeSection)?.label || null;
+
+  useContextualTabTitle(activeSectionLabel, 10);
 
   useEffect(() => {
     const handleScroll = () => {

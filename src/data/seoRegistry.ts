@@ -19,6 +19,7 @@ export interface SeoRouteDefinition {
   tab: ActiveTab;
   toolSlug?: string;
   label: string;
+  tabTitle: string;
   title: string;
   description: string;
   ogType: 'website' | 'article';
@@ -33,6 +34,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     path: '/',
     tab: 'home',
     label: 'Home',
+    tabTitle: 'Kexora · Web, App & AI-SEO',
     title: 'Kexora — Web Design, App, Game & AI-SEO Agency',
     description:
       'Kexora builds custom websites, mobile apps, 2D/3D games, AI-SEO systems, and business registrations with 0.3s load speeds and transparent pricing.',
@@ -46,6 +48,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     path: '/services',
     tab: 'services',
     label: 'Services',
+    tabTitle: 'Services · Kexora',
     title: 'Services — Web, App, Game Development & AI-SEO | Kexora',
     description:
       'Explore 24 digital engineering services from Kexora including custom web development, multi-vendor e-commerce, Android/iOS apps, game dev, SEO, and GST/ISO registration.',
@@ -62,6 +65,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     path: '/pricing',
     tab: 'pricing',
     label: 'Pricing Plan',
+    tabTitle: 'Pricing · Kexora',
     title: 'Pricing Plans — Transparent 3-Tier Agency Rates | Kexora',
     description:
       'Compare Basic, Standard, and Premium pricing in INR and USD across all 24 Kexora web, app, game, branding, and SEO services with instant live quotations.',
@@ -78,6 +82,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     path: '/our-tools',
     tab: 'tools',
     label: 'Our Tools',
+    tabTitle: 'Tools · Kexora',
     title: 'Our Tools — Free Privacy-First Browser Utilities | Kexora',
     description:
       'Use free in-browser tools from Kexora: WhatsApp Chat Reader, Live AI SEO Auditor, Project Cost Estimator, and Schema.org JSON-LD Builder with zero server uploads.',
@@ -95,6 +100,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     tab: 'tools',
     toolSlug: 'whatsapp-reader',
     label: 'WhatsApp Message Reader',
+    tabTitle: 'WhatsApp Reader · Kexora',
     title: 'WhatsApp Chat Export Reader — Free Local Viewer | Kexora',
     description:
       'Read and filter exported WhatsApp .txt chat logs privately inside your browser memory with zero cloud uploads, instant keyword search, and sender filters.',
@@ -113,6 +119,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     tab: 'tools',
     toolSlug: 'seo-audit',
     label: 'AI SEO Auditor',
+    tabTitle: 'AI SEO Auditor · Kexora',
     title: 'AI SEO & Core Web Vitals Auditor — Live Domain Scan | Kexora',
     description:
       'Audit any website for Core Web Vitals (LCP, CLS), meta tags, and Schema.org sitelink readiness with actionable recommendations from Kexora.',
@@ -131,6 +138,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     tab: 'tools',
     toolSlug: 'cost-calculator',
     label: 'Cost & Speed Estimator',
+    tabTitle: 'Cost Estimator · Kexora',
     title: 'Website & App Cost Estimator — INR & USD Calculator | Kexora',
     description:
       'Calculate transparent setup costs, timelines, and retainers for custom websites, mobile apps, games, and e-commerce stores in INR and USD.',
@@ -149,6 +157,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     tab: 'tools',
     toolSlug: 'schema-generator',
     label: 'Schema.org JSON-LD Builder',
+    tabTitle: 'Schema Builder · Kexora',
     title: 'Schema.org JSON-LD Generator — Google Rich Results | Kexora',
     description:
       'Generate Google-compliant Organization, ProfessionalService, and WebSite JSON-LD structured data to strengthen Site Names and SERP sitelinks.',
@@ -166,6 +175,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     path: '/about-us',
     tab: 'about',
     label: 'About Us',
+    tabTitle: 'About Us · Kexora',
     title: 'About Us — Leadership, Engineering & Vision | Kexora',
     description:
       'Meet Rajan Singh (CEO) and Aditya Singh (CTO) at Kexora. Learn how our Siwan, Bihar studio delivers 0.3s custom websites, apps, and SEO globally.',
@@ -182,6 +192,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     path: '/news',
     tab: 'news',
     label: 'News & Insights',
+    tabTitle: 'News · Kexora',
     title: 'News & Digital Engineering Updates | Kexora',
     description:
       'Read Kexora dispatches on custom web performance, Google AI-SEO strategies, React migrations, mobile engineering, and digital growth.',
@@ -198,6 +209,7 @@ export const SEO_ROUTES: SeoRouteDefinition[] = [
     path: '/contact',
     tab: 'contact',
     label: 'Contact Us',
+    tabTitle: 'Contact · Kexora',
     title: 'Contact Us — Start Your Web, App or SEO Project | Kexora',
     description:
       'Request a custom quotation or speak directly with Kexora leadership via contact@kexora.in for websites, mobile apps, games, and SEO campaigns.',

@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { CASE_STUDIES } from '../../data/agencyData';
 import { CaseStudy } from '../../types';
-import { KEXORA_THEME, ProtectedImage, BlurKex } from '../universal';
+import {
+  KEXORA_THEME,
+  ProtectedImage,
+  BlurKex,
+  useContextualTabTitle,
+} from '../universal';
 import { ArrowUpRight, Check, X } from 'lucide-react';
 
 interface PortfolioProps {
@@ -11,6 +16,13 @@ interface PortfolioProps {
 export const Portfolio: React.FC<PortfolioProps> = ({ openContactModal }) => {
   const [filter, setFilter] = useState<string>('all');
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
+
+  useContextualTabTitle(
+    selectedCaseStudy
+      ? `${selectedCaseStudy.client.split('&')[0].trim()} Case Study`
+      : null,
+    30
+  );
 
   const filteredStudies =
     filter === 'all'

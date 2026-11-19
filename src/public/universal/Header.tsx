@@ -11,6 +11,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useContextualTabTitle } from './tabTitle';
 
 interface HeaderProps {
   activeTab: ActiveTab;
@@ -35,6 +36,15 @@ export const Header: React.FC<HeaderProps> = ({
   const [serviceSearch, setServiceSearch] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+  useContextualTabTitle(
+    servicesDrawerOpen
+      ? serviceSearch.trim()
+        ? `Search: ${serviceSearch.trim()}`
+        : 'Explore Services'
+      : null,
+    30
+  );
 
   useEffect(() => {
     let ticking = false;

@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { ActiveTab, ToolTab } from '../../types';
 import { KEXORA_TOOLS_CATALOG, ToolItem } from '../../data/toolsData';
-import { PageBanner, SeoHubSection, BlurKex } from '../universal';
+import {
+  PageBanner,
+  SeoHubSection,
+  BlurKex,
+  useContextualTabTitle,
+} from '../universal';
 import { WhatsAppReaderTool } from './WhatsAppReaderTool';
 import { SeoAuditorTool } from './SeoAuditorTool';
 import { CostEstimatorTool } from './CostEstimatorTool';
@@ -42,6 +47,21 @@ export const OurToolsPage: React.FC<OurToolsPageProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [expandedPreviewSlug, setExpandedPreviewSlug] = useState<string | null>(null);
   const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
+
+  const expandedTool = expandedPreviewSlug
+    ? KEXORA_TOOLS_CATALOG.find((t) => t.slug === expandedPreviewSlug)
+    : null;
+
+  useContextualTabTitle(
+    expandedTool
+      ? expandedTool.shortTitle || expandedTool.title
+      : searchQuery.trim()
+        ? `Tools: ${searchQuery.trim()}`
+        : selectedCategory !== 'all'
+          ? `${selectedCategory} Tools`
+          : null,
+    10
+  );
 
   const categories = [
     { id: 'all', label: 'All Utilities (4)' },

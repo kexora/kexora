@@ -5,6 +5,8 @@ import {
   Footer,
   ContactModal,
   ErrorStatePage,
+  setBaseTabTitle,
+  formatDynamicTabTitle,
 } from './public/universal';
 import { HomePage } from './public/home';
 import { ServicesPage } from './public/services';
@@ -140,6 +142,9 @@ export default function App() {
   const [modalService, setModalService] = useState<string>(
     'Web Design & Custom Code'
   );
+  const [contactIntentService, setContactIntentService] = useState<string | null>(
+    null
+  );
   const [currency, setCurrency] = useState<CurrencyCode>('INR');
 
   // Listen to browser Back / Forward navigation (popstate)
@@ -226,6 +231,11 @@ export default function App() {
           const headingUrl = `/api/media/v_7b93c8f2?v=${encodeURIComponent(headVer)}`;
           const logosUrl = `/api/media/v_1c67d4e5?v=${encodeURIComponent(logVer)}`;
 
+          const mathDigitRange =
+            'U+0030-0039, U+00B2-00B3, U+00B9, U+2070-209F, U+2150-215F';
+          const nonDigitRange =
+            'U+0000-002F, U+003A-00B1, U+00B4-00B8, U+00BA-206F, U+20A0-214F, U+2160-10FFFF';
+
           styleEl.textContent = `
             @font-face {
               font-family: 'KexoraSystem';
@@ -242,11 +252,20 @@ export default function App() {
               font-display: swap;
             }
             @font-face {
+              font-family: 'KexoraMathDigits';
+              src: url('${systemUrl}');
+              font-weight: 100 900;
+              font-style: normal;
+              font-display: swap;
+              unicode-range: ${mathDigitRange};
+            }
+            @font-face {
               font-family: 'KexoraHeading';
               src: url('${headingUrl}');
               font-weight: 100 900;
               font-style: normal;
               font-display: swap;
+              unicode-range: ${nonDigitRange};
             }
             @font-face {
               font-family: 'Outfit';
@@ -254,6 +273,7 @@ export default function App() {
               font-weight: 100 900;
               font-style: normal;
               font-display: swap;
+              unicode-range: ${nonDigitRange};
             }
             @font-face {
               font-family: 'KexoraLogos';
@@ -261,6 +281,7 @@ export default function App() {
               font-weight: 100 900;
               font-style: normal;
               font-display: swap;
+              unicode-range: ${nonDigitRange};
             }
           `;
 
@@ -269,16 +290,24 @@ export default function App() {
               weight: '100 900',
               style: 'normal',
             });
+            const digitsFace = new FontFace('KexoraMathDigits', `url(${systemUrl})`, {
+              weight: '100 900',
+              style: 'normal',
+              unicodeRange: mathDigitRange,
+            });
             const headFace = new FontFace('KexoraHeading', `url(${headingUrl})`, {
               weight: '100 900',
               style: 'normal',
+              unicodeRange: nonDigitRange,
             });
             const logoFace = new FontFace('KexoraLogos', `url(${logosUrl})`, {
               weight: '100 900',
               style: 'normal',
+              unicodeRange: nonDigitRange,
             });
             Promise.allSettled([
               sysFace.load(),
+              digitsFace.load(),
               headFace.load(),
               logoFace.load(),
             ]).then((results) => {
@@ -306,10 +335,10 @@ export default function App() {
     };
   }, []);
 
-  // Dynamic Head Manager: Sync title, description, canonical URL, OpenGraph, robots (index vs noindex), and BreadcrumbList JSON-LD
+  // Dynamic Head Manager: Sync clean browser tab title, SEO meta tags, canonical URL, OpenGraph, robots, and BreadcrumbList JSON-LD
   useEffect(() => {
     if (isOffline) {
-      document.title = 'Offline — Connection Lost | Kexora';
+      setBaseTabTitle('Offline · Kexora');
       upsertMetaTag('meta[name="robots"]', 'name', 'robots', 'noindex, follow');
       upsertCanonicalLink(null);
       upsertDynamicBreadcrumbSchema(null);
@@ -318,11 +347,11 @@ export default function App() {
 
     if (routeErrorCode) {
       const errorTitles: Record<ErrorCode, string> = {
-        404: '404 — Page Not Found | Kexora',
-        403: '403 — Restricted Access | Kexora',
-        500: '500 — Application Error | Kexora',
+        404: '404 Not Found · Kexora',
+        403: '403 Restricted · Kexora',
+        500: '500 Error · Kexora',
       };
-      document.title = errorTitles[routeErrorCode];
+      setBaseTabTitle(errorTitles[routeErrorCode]);
       upsertMetaTag('meta[name="robots"]', 'name', 'robots', 'noindex, follow');
       upsertMetaTag('meta[name="googlebot"]', 'name', 'googlebot', 'noindex, follow');
       upsertCanonicalLink(null);
@@ -335,7 +364,12 @@ export default function App() {
     const canonicalUrl =
       seo.path === '/' ? `${CANONICAL_ORIGIN}/` : `${CANONICAL_ORIGIN}${seo.path}`;
 
-    document.title = seo.title;
+    const dynamicBaseTitle =
+      activeTab === 'contact' && contactIntentService
+        ? formatDynamicTabTitle(`Quote: ${contactIntentService}`)
+        : seo.tabTitle;
+
+    setBaseTabTitle(dynamicBaseTitle);
     upsertMetaTag(
       'meta[name="robots"]',
       'name',
@@ -369,7 +403,7 @@ export default function App() {
     upsertDynamicBreadcrumbSchema(seo.breadcrumbs);
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [activeTab, activeToolSlug, routeErrorCode, isOffline]);
+  }, [activeTab, activeToolSlug, routeErrorCode, isOffline, contactIntentService]);
 
   const handleNavChange = (tab: ActiveTab) => {
     const targetPath = TAB_TO_PATH[tab] || '/';
@@ -378,6 +412,9 @@ export default function App() {
       window.location.pathname !== targetPath
     ) {
       window.history.pushState({ tab, toolSlug: null }, '', targetPath);
+    }
+    if (tab !== 'contact') {
+      setContactIntentService(null);
     }
     setActiveTab(tab);
     setActiveToolSlug(null);
@@ -393,6 +430,7 @@ export default function App() {
     ) {
       window.history.pushState({ tab: 'tools', toolSlug: slug }, '', targetPath);
     }
+    setContactIntentService(null);
     setActiveTab('tools');
     setActiveToolSlug(slug);
     setRouteErrorCode(null);
@@ -401,9 +439,21 @@ export default function App() {
   };
 
   const openContactModal = (serviceName?: string, details?: string) => {
-    setModalService(serviceName || 'Web Design & Custom Development');
+    const trimmedService = (serviceName || '').trim();
+    setModalService(trimmedService || 'Web Design & Custom Development');
     setModalDetails(details || '');
-    handleNavChange('contact');
+    setContactIntentService(trimmedService || 'Start Project');
+    const targetPath = TAB_TO_PATH.contact;
+    if (
+      typeof window !== 'undefined' &&
+      window.location.pathname !== targetPath
+    ) {
+      window.history.pushState({ tab: 'contact', toolSlug: null }, '', targetPath);
+    }
+    setActiveTab('contact');
+    setActiveToolSlug(null);
+    setRouteErrorCode(null);
+    setRequestedPath(targetPath);
   };
 
   const openToolsWithTab = (tabName: ToolTab) => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { SeoAuditReport } from '../../types';
+import { useContextualTabTitle } from '../universal';
 import {
   Search,
   RefreshCw,
@@ -52,6 +53,20 @@ export const SeoAuditorTool: React.FC<SeoAuditorToolProps> = ({
     aiAnalysis:
       'kexora.in demonstrates enterprise-grade SEO architecture with full Google SERP sitelink eligibility, sub-second Core Web Vitals, and complete Organization/Service JSON-LD graphs.',
   });
+
+  const auditedHost = auditResult.url
+    .replace(/^https?:\/\//i, '')
+    .replace(/\/.*$/, '')
+    .trim();
+
+  useContextualTabTitle(
+    isAuditing
+      ? `Scanning ${auditUrl.replace(/^https?:\/\//i, '').replace(/\/.*$/, '')}`
+      : auditedHost && auditedHost.toLowerCase() !== 'kexora.in'
+        ? `Audit: ${auditedHost}`
+        : null,
+    15
+  );
 
   const runLiveAudit = async () => {
     if (!auditUrl.trim()) return;

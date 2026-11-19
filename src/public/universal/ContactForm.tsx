@@ -27,6 +27,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { Dropdown, DropdownGroup, DropdownOption } from './Dropdown';
+import { useContextualTabTitle } from './tabTitle';
 
 interface ContactFormProps {
   initialService?: string;
@@ -481,6 +482,15 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
   const [copiedRef, setCopiedRef] = useState(false);
+
+  useContextualTabTitle(
+    submittedRef
+      ? 'Proposal Sent'
+      : formData.serviceType && formData.serviceType !== initialResolved.serviceType
+        ? `Quote: ${formData.serviceType}`
+        : null,
+    submittedRef ? 25 : 20
+  );
 
   const validateEmail = (email: string) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
